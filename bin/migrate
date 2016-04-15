@@ -182,8 +182,12 @@ $__info = function($climate, $filename) use ($m) {
  * --new
  */
 $__new = function($climate, $desc, $type = 'default') use ($m) {
-	$file = $m->createNew($desc, $type);
-	$climate->green("Created new migration " . basename($file));
+	try{
+		$file = $m->createNew($desc, $type);
+		$climate->green("Created new migration " . basename($file));
+	} catch (WireException $e){
+		$climate->red($e->getMessage());
+	}
 };
 
 /**

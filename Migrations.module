@@ -28,9 +28,10 @@ class Migrations extends WireData implements Module {
 
 	public function createNew($desc = null, $type = 'default') {
 		$base = __DIR__ . "/templates/$type.php.inc";
-		if(!is_file($base)) throw new Exception('Not a valid template for creation ' . $type);
+		if(!is_file($base)) throw new WireException('Not a valid template for creation ' . $type);
 		$timestamp = time();
 		$new = $this->path . date('Y-m-d_H-i') . '.php';
+		if(is_file($new)) throw new WireException('There\'s already a file existing for the current time.');
 
 		$content = file_get_contents($base);
 		$content = wirePopulateStringTags($content, array(

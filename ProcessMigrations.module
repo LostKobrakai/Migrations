@@ -148,8 +148,12 @@ class ProcessMigrations extends Process {
 
 			if(!in_array($type, array_keys($types))) $this->session->redirect($this->page->url);
 
-			$file = $this->m()->createNew($desc, $type);
-			$this->message("Created new migration " . basename($file));
+			try{
+				$file = $this->m()->createNew($desc, $type);
+				$this->message("Created new migration " . basename($file));
+			} catch(WireException $e) {
+				$this->error($e->getMessage());
+			}
 			$this->session->redirect($this->page->url);
 		}
 

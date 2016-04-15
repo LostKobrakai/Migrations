@@ -1,0 +1,16 @@
+{
+	"title": "Migrations",
+	"version": "0.0.1",
+	"summary": "",
+	"author": "Benjamin Milde",
+	"href": "",
+	"autoload": false,
+	"singular": false,
+	"requires": [
+		"PHP>=5.4.0",
+		"ProcessWire>=2.6.14"
+	],
+	"installs": [
+		"ProcessMigrations"
+	]
+}

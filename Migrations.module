@@ -1,0 +1,180 @@
+<?php
+/**
+ * Migrations (0.0.1)
+ * 
+ * 
+ * @author Benjamin Milde
+ * 
+ * ProcessWire 2.x
+ * Copyright (C) 2011 by Ryan Cramer
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ * 
+ * http://www.processwire.com
+ * http://www.ryancramer.com
+ * 
+ */
+
+class Migrations extends WireData implements Module {
+
+	protected $path;
+
+	public function init() {
+		$this->path = $this->config->paths->root . "site/migrations/";
+		include_once("Migration.php");
+		include_once("FieldMigration.php");
+		include_once("TemplateMigration.php");
+		include_once("ModuleMigration.php");
+	}
+
+	public function createNew($desc = null, $type = 'default') {
+		$base = __DIR__ . "/templates/$type.php.inc";
+		if(!is_file($base)) throw new Exception('Not a valid template for creation ' . $type);
+		$timestamp = time();
+		$new = $this->path . date('Y-m-d_H-i') . '.php';
+
+		$content = file_get_contents($base);
+		$content = wirePopulateStringTags($content, array(
+			'classname' => $this->filenameToClassname($new),
+			'description' => $desc
+		));
+		file_put_contents($new, $content);
+
+		return $new;
+	}
+
+	public function getMigrations() {
+		$files = array();
+
+		if(!is_dir($this->path)) throw new WireException('Invalid path');
+
+		foreach (new DirectoryIterator($this->path) as $fileInfo) {
+			if($fileInfo->isDot() || $fileInfo->isDir()) continue;
+
+			$files[$fileInfo->getBasename(".php")] = $fileInfo->getPathname();
+		}
+
+		ksort($files);
+		return $files;
+	}
+
+	public function getRunMigrations()
+	{
+		$classes = [];
+		try{
+			$stmt = $this->database->query("SELECT * FROM {$this->className}");
+			$data = $stmt->fetchAll(PDO::FETCH_OBJ);
+			foreach($data as $item) $classes[] = $item->class;
+		}catch(Exception $e){
+			throw new WireException('Cannot load migrations table.');
+		}
+
+		return $classes;
+	}
+
+	public function filenameToClassname($path) {
+		$classname = basename($path, '.php');
+		$classname = str_replace("-", "_", $classname);
+		return "Migration_" . $classname;
+	}
+
+	public function classnameToFilename($classname) {
+		$filename = str_replace('Migration_', '', $classname);
+		$filename = preg_replace("/(\d{4}_\d{2}_\d{2})_(\d{2}_\d{2})/", "$1-$2", $filename);
+		return $filename . '.php';
+	}
+
+	public function migrate($file) {
+		$stmt = $this->database->prepare("INSERT INTO {$this->className} (class) VALUES(:class)");
+		return $this->runAction($file, 'update', $stmt);
+	}
+
+	public function rollback($file) {
+		$stmt = $this->database->prepare("DELETE FROM {$this->className} WHERE class=:class");
+		return $this->runAction($file, 'downgrade', $stmt);
+	}
+
+	public function migrateClass($classname) {
+		$path = $this->classnameToFilename($classname);
+		return $this->migrate($path);
+	}
+
+	public function rollbackClass($classname) {
+		$path = $this->classnameToFilename($classname);
+		return $this->rollback($path);
+	}
+
+	public function isMigrated($file)
+	{
+		return in_array($this->filenameToClassname($file), $this->getRunMigrations());
+	}
+
+	public function getStatics($file) {
+		include_once($file);
+
+		$className = $this->filenameToClassname($file);
+		$class = new ReflectionClass($className);
+		return $class->getStaticProperties();
+	}
+
+	public function getType($file) {
+		include_once($file);
+
+		$className = $this->filenameToClassname($file);
+		$class = new ReflectionClass($className);
+		return $class->getParentClass()->getName();
+	}
+
+	public function getLatestToMigrate()
+	{
+		$files = $this->getMigrations();	
+		$toRun = array();
+
+		foreach (array_reverse($files) as $file) {
+			if($this->isMigrated($file)) break;
+			$toRun[] = $file;
+		}
+
+		return array_reverse($toRun);
+	}
+
+	private function runAction($path, $function, $stmt) {
+		try {
+			include_once($path);
+			$classname = $this->filenameToClassname($path);
+
+			$migration = new $classname();
+			$migration->$function();
+
+			$stmt->bindParam(':class', $classname);
+			$stmt->execute();
+
+			return true;
+		} catch (Exception $e) {
+			$this->message("Could not migrate/rollback $classname. Got error " . get_class($e) . " with " . $e->getMessage());
+			return false;
+		}
+	}
+
+	public function ___install ()
+	{
+		$sql = <<< _END
+
+		CREATE TABLE {$this->className} (
+			id int unsigned NOT NULL auto_increment,
+			class varchar(255) NOT NULL DEFAULT '',
+			PRIMARY KEY(id),
+			UNIQUE KEY(class)
+		) ENGINE = MYISAM;
+
+_END;
+
+		$this->database->query($sql);
+	}
+
+	public function ___uninstall ()
+	{
+		$this->database->query("DROP TABLE {$this->className}");
+	}
+
+
+}

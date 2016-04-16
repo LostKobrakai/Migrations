@@ -9,31 +9,64 @@ abstract class Migration extends Wire{
 	abstract public function downgrade();
 
 	/**
-	 * @param Template|string $template
-	 * @param Field|string $field
+	 * Cycle over a group of pages without running into memory exhaustion
+	 * 
+	 * @param string   $selector
+	 * @param callable $callback
+	 * @return int     $num
+	 */
+	protected function eachPageUncache($selector, callable $callback)
+	{
+		$num = 0;
+		$id = 0;
+		while (true) {
+			$p = $this->pages->get("{$selector}, id>$id");
+			if(!$id = $p->id) break;
+			$callback($p);
+			$this->pages->uncacheAll($p);
+			$num++;
+		}
+		return $num;
+	}
+
+	/**
+	 * Insert a field into a template optionally at a specific position.
+	 * 
+	 * @param Template|string   $template
+	 * @param Field|string      $field
 	 * @param Field|string|null $reference
-	 * @param bool $after
+	 * @param bool              $after
 	 * @throws WireException
 	 */
 	protected function insertIntoTemplate ($template, $field, $reference = null, $after = true)
 	{
 		$template = $this->getTemplate($template);
 		$fieldgroup = $template->fieldgroup;
+		$method = $after ? 'insertAfter' : 'insertBefore';
 
 		$field = $this->getField($field);
 
-		if($reference instanceof Field)	$reference = $fieldgroup->get($reference->name);
-		if(is_string($reference)) $reference = $fieldgroup->get($reference);
+		// Get reference if supplied
+		if($reference instanceof Field)	
+			$reference = $fieldgroup->get($reference->name);
+		else if(is_string($reference))  
+			$reference = $fieldgroup->get($reference);
 
-		if($reference instanceof Field) $fieldgroup->insertAfter($field, $reference);
-		else $fieldgroup->append($field);
+		// Insert field or append
+		if($reference instanceof Field)
+			$fieldgroup->$method($field, $reference);
+		else 
+			$fieldgroup->append($field);
 
 		$fieldgroup->save();
 	}
 
 	/**
-	 * @param          $field
-	 * @param callable $callback
+	 * Edit a field in template context
+	 * 
+	 * @param Template|string $template
+	 * @param Field|string    $field
+	 * @param callable        $callback
 	 */
 	protected function editInTemplateContext ($template, $field, callable $callback)
 	{
@@ -51,7 +84,7 @@ abstract class Migration extends Wire{
 	 * @return Template
 	 * @throws WireException
 	 */
-	private function getTemplate ($template)
+	protected function getTemplate ($template)
 	{
 		$template = !is_string($template) ? $template : $this->templates->get($template);
 		if(!$template instanceof Template) throw new WireException("Invalid template $template");
@@ -59,57 +92,14 @@ abstract class Migration extends Wire{
 	}
 
 	/**
-	 * @param Fieldgroup|string $fieldgroup
-	 * @return Fieldgroup
-	 * @throws WireException
-	 */
-	private function getFieldgroup ($fieldgroup)
-	{
-		$fieldgroup = !is_string($fieldgroup) ? $fieldgroup : $this->fieldgroups->get($fieldgroup);
-		if(!$fieldgroup instanceof Fieldgroup) throw new WireException("Invalid fieldgroup $fieldgroup");
-		return $fieldgroup;
-	}
-
-	/**
 	 * @param Field|string $field
 	 * @return Field
 	 * @throws WireException
 	 */
-	private function getField ($field)
+	protected function getField ($field)
 	{
 		$field = !is_string($field) ? $field : $this->fields->get($field);
 		if(!$field instanceof Field) throw new WireException("Invalid field $field");
 		return $field;
-	}
-
-	/**
-	 * @param Field|string $field
-	 * @throws WireException
-	 */
-	public function deleteField ($field)
-	{
-		$field = $this->getField($field);
-
-		$fgs = $field->getFieldgroups();
-
-		foreach($fgs as $fg){
-			$fg->remove($field);
-			$fg->save();
-		}
-
-		$this->fields->delete($field);
-	}
-
-	/**
-	 * @param Field|string $field
-	 * @throws WireException
-	 */
-	public function deleteTemplate ($template)
-	{
-		$template = $this->getTemplate($template);
-		$fieldgroup = $this->getFieldgroup($template->name);
-
-		$this->templates->delete($template);
-		$this->fieldgroups->delete($fieldgroup);
 	}
 }

@@ -12,13 +12,24 @@ abstract class FieldMigration extends Migration{
 		$f = new Field;
 		$f->name = $this->getFieldName();
 		$f->type = $this->getFieldType();
+
 		$this->fieldSetup($f);
+
 		$f->save();
 		return $f;
 	}
 
 	public function downgrade() {
-		$this->deleteField($this->getFieldName());
+		$field = $this->getField($this->getFieldName());
+
+		$fgs = $field->getFieldgroups();
+
+		foreach($fgs as $fg){
+			$fg->remove($field);
+			$fg->save();
+		}
+
+		$this->fields->delete($field);
 	}
 
 }

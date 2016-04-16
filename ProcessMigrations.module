@@ -24,6 +24,21 @@ class ProcessMigrations extends Process {
 		return $this->migrations;
 	}
 
+	private function arrayToLinks($links)
+	{
+		array_walk($links, function(&$i, $k){
+			$i = "<a href='$i' target='_blank'>$k</a>";
+		});
+		return $links;
+	}
+
+	private function arrayToList($list)
+	{
+		return array_reduce($list, function($c, $item){
+			return $c . "<li>$item</li>";
+		}, '<ul>') . '</ul>';
+	}
+
 	public function ___execute() {
 		$table = $this->modules->get("MarkupAdminDataTable");
 		$table->setSortable(false);
@@ -42,7 +57,17 @@ class ProcessMigrations extends Process {
 			$this->error($e->getMessage());
 		}
 
-		if(!count($files)) return "<p>" . __('Cannot find migrations.') . "</p>";
+		if(!count($files)){
+			// Onboarding
+			$out = "<p>" . $this->_('It seems like the module couldn\'t find any migrations. Please make sure the /site/migrations/ folder does exist and is readable by ProcessWire.') . "</p>";
+			$out .= "<p>" . $this->_('Getting help:') . "</p>";
+			$links = array(
+				$this->_('Forum Support Topic') => 'https://processwire.com/talk/topic/13045-migrations/',
+				$this->_('GitHub') => 'https://github.com/LostKobrakai/Migrations'
+			);
+			$out .= $this->arrayToList($this->arrayToLinks($links));
+			return $out;
+		}
 
 		foreach ($files as $file) {
 			$staticVars = $this->m()->getStatics($file);

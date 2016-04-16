@@ -43,10 +43,16 @@ class Migrations extends WireData implements Module {
 		return $new;
 	}
 
+	public function createPath()
+	{
+		if(!wireMkdir($this->path)) throw new WireException('Could not create path');
+		$this->message('Automatically created migrations path.');
+	}
+
 	public function getMigrations() {
 		$files = array();
 
-		if(!is_dir($this->path)) throw new WireException('Invalid path');
+		if(!is_dir($this->path)) $this->createPath();
 
 		foreach (new DirectoryIterator($this->path) as $fileInfo) {
 			if($fileInfo->isDot() || $fileInfo->isDir()) continue;

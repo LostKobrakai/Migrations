@@ -59,7 +59,13 @@ class ProcessMigrations extends Process {
 
 		if(!count($files)){
 			// Onboarding
-			$out = "<p>" . $this->_('It seems like the module couldn\'t find any migrations. Please make sure the /site/migrations/ folder does exist and is readable by ProcessWire.') . "</p>";
+			$button = $this->createNewButton();
+			$button->addClass('head_button_clone');
+			$button->addClass('space_after');
+
+			$out = "<p>" . $this->_('It seems like the module couldn\'t find any migrations. Create a new migrations to see it listed here.') . "</p>";
+			$out .= $button->render();
+			$out .= "<p>" . $this->_('If this doesn\'t work please make sure the /site/migrations/ folder does exist and is readable by ProcessWire.') . "</p>";
 			$out .= "<p>" . $this->_('Getting help:') . "</p>";
 			$links = array(
 				$this->_('Forum Support Topic') => 'https://processwire.com/talk/topic/13045-migrations/',
@@ -99,13 +105,20 @@ class ProcessMigrations extends Process {
 		$button->addClass('head_button_clone');
 		$button->icon = 'play';
 
-		$button2 = $this->wire('modules')->get('InputfieldButton');
-		$button2->attr('href', 'create/');
-		$button2->value = $this->_('Create New');
-		$button2->addClass('ui-priority-secondary');
-		$button2->icon = 'plus-circle';
+		$button2 = $this->createNewButton();
 
 		return $table->render().$button->render().$button2->render();
+	}
+
+	protected function createNewButton()
+	{
+		$button = $this->wire('modules')->get('InputfieldButton');
+		$button->attr('href', 'create/');
+		$button->value = $this->_('Create New');
+		$button->addClass('ui-priority-secondary');
+		$button->icon = 'plus-circle';
+
+		return $button;
 	}
 
 	public function ___executeExecute() {

@@ -4,6 +4,7 @@
     "summary": "Lists all available migrations and their status",
     "author": "Benjamin Milde",
     "href": "",
+    "icon": "magic",
     "autoload": false,
     "singular": false,
     "requires": [
@@ -14,7 +15,6 @@
     "page": {
         "name": "migrations",
         "parent": "setup",
-        "title": "Migrations",
-        "icon": "magic"
+        "title": "Migrations"
     }
 }

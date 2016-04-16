@@ -144,7 +144,7 @@ class ProcessMigrations extends Process {
 
 		if($this->input->post->create){
 			$type = $this->input->post->text('type');
-			$desc = $this->input->post->text('desc');
+			$desc = $this->input->post->textarea('desc');
 
 			if(!in_array($type, array_keys($types))) $this->session->redirect($this->page->url);
 
@@ -171,7 +171,7 @@ class ProcessMigrations extends Process {
 		$type->columnWidth = 20;
 		$form->add($type);
 
-		$desc = $this->wire('modules')->get('InputfieldText');
+		$desc = $this->wire('modules')->get('InputfieldTextarea');
 		$desc->attr('id+name', 'desc');
 		$desc->label = $this->_('Description');
 		$desc->description = $this->_('Description for the migration. (optional)');

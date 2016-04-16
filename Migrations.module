@@ -36,7 +36,7 @@ class Migrations extends WireData implements Module {
 		$content = file_get_contents($base);
 		$content = wirePopulateStringTags($content, array(
 			'classname' => $this->filenameToClassname($new),
-			'description' => $desc
+			'description' => addcslashes($desc, '"\\')
 		));
 		file_put_contents($new, $content);
 

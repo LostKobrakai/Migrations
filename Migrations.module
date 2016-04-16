@@ -128,7 +128,9 @@ class Migrations extends WireData implements Module {
 
 		$className = $this->filenameToClassname($file);
 		$class = new ReflectionClass($className);
-		return $class->getParentClass()->getName();
+		$type = $class->getParentClass()->getName();
+		$type = $type === 'Migration' ? 'Default' : $type;
+		return $type;
 	}
 
 	public function getLatestToMigrate()

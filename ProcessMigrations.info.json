@@ -1,6 +1,6 @@
 {
     "title": "ProcessMigrations",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "summary": "Lists all available migrations and their status",
     "author": "Benjamin Milde",
     "href": "",

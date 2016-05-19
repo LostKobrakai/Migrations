@@ -13,6 +13,8 @@ abstract class FieldMigration extends Migration{
 		$f->name = $this->getFieldName();
 		$f->type = $this->getFieldType();
 
+		$f->save();
+
 		$this->fieldSetup($f);
 
 		$f->save();

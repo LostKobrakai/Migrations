@@ -19,11 +19,14 @@ abstract class TemplateMigration extends Migration{
 		$fg = new Fieldgroup;
 		$fg->name =  $this->getTemplateName();
 		foreach($this->fields as $field) { // add global fields
-			if(!$field->flags & Field::flagGlobal) continue;
+			if(!($field->flags & Field::flagGlobal)) continue;
 			$fg->add($field);
 		}
 		$fg->save();
 		$t->fieldgroup = $fg;
+
+		$t->fieldgroup->save();
+		$t->save();
 
 		$this->templateSetup($t);
 

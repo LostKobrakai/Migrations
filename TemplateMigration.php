@@ -41,7 +41,7 @@ abstract class TemplateMigration extends Migration{
 		$template = $this->getTemplate($this->getTemplateName());
 		$fieldgroup = $template->fieldgroup;
 
-		$fg = $this->fuel('fieldgroups')->get($template->name);
+		$fg = $this->wire('fieldgroups')->get($template->name);
 		$minNumberToError = $fg->id == $fieldgroup->id ? 2 : 1;
 
 		if($fg->numTemplates() >= $minNumberToError) 

@@ -272,12 +272,12 @@
       <article class="article">
         <div class="wrapper">
           
-          <h1 id="how-does-all-of-this-work-on-a-higher-level-and-why-do-i-need-this">How does all of this work on a higher level and why do I need this?</h1>
+          <h1 id="how-does-all-of-this-work-on-a-higher-level-and-why-do-i-need-this">How does all of this work on a higher level and why do I need this?<a class="headerlink" href="#how-does-all-of-this-work-on-a-higher-level-and-why-do-i-need-this" title="Permanent link">#</a></h1>
 <p>Above is the question I need to answer here. So first of all the reason behind all this seemingly laborous migration files.</p>
 <p>Migrating changes between a running live system and a development system is super easy for changes to files, but hard if it comes to changes affecting the database. Consider a scenario where a site is live (and content is being created there) and you're developing new features for a few weeks or even month. When it comes to moving those changes to the live site you need a way to know which templates need updating and which fields might have been created. </p>
 <p>Doing those kind of updates by hand is slow (downtime for the site), can quite easily lead to minor or even mayor errors if something is not 100% correctly transfered and it requires a good amout of discipline before that, so all changes are actually catched in development, especially if multiple people work on the project.</p>
 <p>Migration files take the ambiguity out of the task by moving all those changes into executable code. This way they can be relyably recreated on the live system and even be automated. Additionally those migrations live in source control with all it's benefits and are also easy to share to collaborators.</p>
-<h2 id="evaluation-tldr">Evaluation (tldr;)</h2>
+<h2 id="evaluation-tldr">Evaluation (tldr;)<a class="headerlink" href="#evaluation-tldr" title="Permanent link">#</a></h2>
 <p><strong>Pro:</strong></p>
 <ul>
 <li>Automate changes</li>
@@ -290,7 +290,7 @@
 <li>Migrations need to be created for each change affecting the db</li>
 <li>Changes directly via the Admin UI should be avoided</li>
 </ul>
-<h2 id="workflow">Workflow</h2>
+<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">#</a></h2>
 <p>Some of you might know database migrations from frameworks like Laravel or Rails. These specifically change the db schema of the application. That's not what we're doing. We won't edit db tables or otherwise interact with mysql directly as long as there's a ProcessWire API being far more simpler to use. </p>
 <p>On a high level migrations will rather look like in this table. </p>
 <table>

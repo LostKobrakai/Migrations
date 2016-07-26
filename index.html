@@ -296,8 +296,8 @@
    \/__/     \/__/     \/__/     \|__|     \/__/               \/__/
 </pre>
 
-<h1 id="intro">Intro</h1>
-<h2 id="description">Description</h2>
+<h1 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">#</a></h1>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h2>
 <p>There where various threads on the ProcessWire Forums about the topic on how to reasonably handle multiple dev/staging and live environments with ProcessWire and at best handle it as automatically as possible. A git based workflow makes it easy to handle files, but the pain point of migrating db changes has even lead to multiple requests of not handling the template/field setup in the db at all.</p>
 <p><img alt="Admin UI" src="./images/UI.png" /></p>
 <p>This module does help you to manage migration files, where any changes that affect the database can be stored in php files using just the simple <a href="https://processwire.com/api/ref/">ProcessWire API</a> at your disposal. It's not as nice as using the Admin UI directly, but certainly better than trying to migrate changes manually –  possibly weeks after adding the changes. Also there's always the option to create helper modules, which can export changes made in the Admin UI to something usable in those migration files. I'm using something like that to export template access changes into a json format.</p>
@@ -305,7 +305,7 @@
 <p class="admonition-title">Create a backup before running migrations!</p>
 <p>Your migrations will probably hold lot's of code, which does delete data. This module does not have any security measurements to prevent that. Be sure to test your migrations locally and save a database backup before running them.</p>
 </div>
-<h2 id="migration-types">Migration Types</h2>
+<h2 id="migration-types">Migration Types<a class="headerlink" href="#migration-types" title="Permanent link">#</a></h2>
 <p>There are currently four types of migrations:</p>
 <ul>
 <li>
@@ -319,7 +319,7 @@ Default migrations are the most free form migrations. There's just a description
 <li><strong>ModuleMigration</strong><br />
 These make your live easier by providing a more declarative way of migrating the creation of Fields/Templates or the installation of modules. All the boilerplate is handled by the base classes these migrations do extend, so you don't need to think about <code>update()</code> and <code>downgrade()</code>. You can rather just describe the item you want to handle and the rest is been taken care of.</li>
 </ul>
-<h2 id="cli">CLI</h2>
+<h2 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">#</a></h2>
 <p>The module does include a CLI interface, which does allow the migrations to be run automatically by Continous Integration Systems or deployment scripts or just by yourself if you like the command-line. The script is located in the bin/ directory inside the module's folder. It does however require a composer package to work, which you can simply add by running <code>composer require league/climate</code> in your site directory (or the root directory for pw 3.0). Make sure to require composers autoload.php in your config.php for 2.x installations. </p>
 <p>The CLI does have a quite handy help page, which you get by running <code>php migrate -h</code> so I'm just adding the important bits of that here:</p>
 <pre>
@@ -358,7 +358,7 @@ Optional Arguments:
 </pre></div>
 
 
-<h2 id="helper-functions">Helper Functions</h2>
+<h2 id="helper-functions">Helper Functions<a class="headerlink" href="#helper-functions" title="Permanent link">#</a></h2>
 <p>There are already a handful of helper function included in the Migration base class, which tackle things I found to need way to much boilerplate for kinda simple changes. Read the code comments on what each of them does.</p>
 <div class="admonition note">
 <p class="admonition-title">The number of helper functions will probably grow over time.</p>
@@ -397,7 +397,7 @@ Optional Arguments:
 </pre></div>
 
 
-<h3 id="custom-helper-functions">Custom Helper Functions</h3>
+<h3 id="custom-helper-functions">Custom Helper Functions<a class="headerlink" href="#custom-helper-functions" title="Permanent link">#</a></h3>
 <p>You can create your own helper functions by using ProcessWire <a href="https://processwire.com/api/hooks/">Hooks</a>. These functions can then be used in your migrations.</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 

@@ -272,8 +272,8 @@
       <article class="article">
         <div class="wrapper">
           
-          <h1 id="examples">Examples</h1>
-<h2 id="getting-started">Getting started</h2>
+          <h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h1>
+<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">#</a></h2>
 <p>Migrations are simple small classes, which consist of basically two methods and a static description variable. The two methods are named <code>update()</code> and <code>downgrade()</code> and are called respecively when running the migration or rolling it back.</p>
 <p>The most basic migration does therefore look something like this:</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
@@ -303,7 +303,7 @@
 
 
 <p>You might do lot's of different things in those migrations, but I'll just name some examples:</p>
-<h3 id="change-a-field-or-template-setting">Change a field or template setting</h3>
+<h3 id="change-a-field-or-template-setting">Change a field or template setting<a class="headerlink" href="#change-a-field-or-template-setting" title="Permanent link">#</a></h3>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 
 <span class="nx">test</span>
@@ -314,9 +314,9 @@
 <li>Add some new pages to the installation</li>
 <li>Add a field to a tempate, which wasn't needed before</li>
 </ul>
-<h2 id="specialized-migration-types">Specialized Migration Types</h2>
+<h2 id="specialized-migration-types">Specialized Migration Types<a class="headerlink" href="#specialized-migration-types" title="Permanent link">#</a></h2>
 <p>Specialized migration types are much simpler to use, because their rollback functionality is much simpler and often tightly coupled to the data needed to run the migration in the first place. Therefore it's enough to supply the information about what to create/add and the deletion will just work as well.</p>
-<h3 id="field-migration">Field Migration</h3>
+<h3 id="field-migration">Field Migration<a class="headerlink" href="#field-migration" title="Permanent link">#</a></h3>
 <p>Does create a field and remove it on rollback.</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 
@@ -356,7 +356,7 @@
 </pre></div>
 
 
-<h3 id="template-migration">Template Migration</h3>
+<h3 id="template-migration">Template Migration<a class="headerlink" href="#template-migration" title="Permanent link">#</a></h3>
 <p>Does create a template and remove it on rollback.</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 
@@ -389,7 +389,7 @@
 </pre></div>
 
 
-<h3 id="module-migration">Module Migration</h3>
+<h3 id="module-migration">Module Migration<a class="headerlink" href="#module-migration" title="Permanent link">#</a></h3>
 <p>This is the simplest migration type. Add the module into the vcs (&gt;3.0 can also use composer) and install it like this. Will only deinstalled the module on rollback.</p>
 <div class="admonition note">
 <p class="admonition-title">Do not remove the module from the vcs before running the migration<p>Trying to remove a module without it's files will fail. At best just let ProcessWire remove the files in a additional migration, which could also download it on rollback.</p>

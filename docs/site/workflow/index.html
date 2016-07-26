@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="no-js ie6"><![endif]-->
+<!--[if IE 7 ]><html class="no-js ie7"><![endif]-->
+<!--[if IE 8 ]><html class="no-js ie8"><![endif]-->
+<!--[if IE 9 ]><html class="no-js ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    
+      
+        <title>How does it work - Migrations Module</title>
+      
+      
+      
+        <link rel="canonical" href="https://LostKobrakai.github.io/Migrations/workflow/">
+      
+      
+        <meta name="author" content="Benjamin Milde">
+      
+    
+    <meta property="og:url" content="https://LostKobrakai.github.io/Migrations/workflow/">
+    <meta property="og:title" content="Migrations Module">
+    <meta property="og:image" content="https://LostKobrakai.github.io/Migrations/workflow//../images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Migrations Module">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+      <link rel="apple-touch-icon" href="../images/logo.png">
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <style>
+      @font-face {
+      	font-family: 'Icon';
+      	src: url('../assets/fonts/icon.eot?52m981');
+      	src: url('../assets/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+      		   url('../assets/fonts/icon.woff?52m981')
+               format('woff'),
+      		   url('../assets/fonts/icon.ttf?52m981')
+               format('truetype'),
+      		   url('../assets/fonts/icon.svg?52m981#icon')
+               format('svg');
+      	font-weight: normal;
+      	font-style: normal;
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/stylesheets/application-a422ff04cc.css">
+    
+      <link rel="stylesheet" href="../assets/stylesheets/palettes-05ab2406df.css">
+    
+    
+      
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Sans Pro:400,700|Source+Code+Pro">
+      <style>
+        body, input {
+          font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+        }
+        pre, code {
+          font-family: 'Source Code Pro', 'Courier New', 'Courier', monospace;
+        }
+      </style>
+    
+    
+      <link rel="stylesheet" href="../stylesheets/monokai.css">
+    
+      <link rel="stylesheet" href="../stylesheets/mystyles.css">
+    
+    <script src="../assets/javascripts/modernizr-4ab42b99fd.js"></script>
+    
+  </head>
+  
+  
+  
+  <body class="palette-primary-light-blue palette-accent-deep-orange">
+    
+      
+      
+    
+    <div class="backdrop">
+      <div class="backdrop-paper"></div>
+    </div>
+    <input class="toggle" type="checkbox" id="toggle-drawer">
+    <input class="toggle" type="checkbox" id="toggle-search">
+    <label class="toggle-button overlay" for="toggle-drawer"></label>
+    <header class="header">
+      <nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        
+          <span class="path">
+            
+          </span>
+        
+        How does it work
+      </div>
+    </div>
+    
+      
+      <div class="button button-twitter" role="button" aria-label="Twitter">
+        <a href="https://twitter.com/lostkobrakai" title="@lostkobrakai on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+      </div>
+    
+    
+      
+      <div class="button button-github" role="button" aria-label="GitHub">
+        <a href="https://github.com/LostKobrakai" title="@LostKobrakai on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+      </div>
+    
+    <div class="button button-search" role="button" aria-label="Search">
+      <label class="toggle-button icon icon-search" title="Search" for="toggle-search"></label>
+    </div>
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+    </header>
+    <main class="main">
+      
+      <div class="drawer">
+        <nav aria-label="Navigation">
+  
+  <a href="https://github.com/LostKobrakai/Migrations" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="../images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>
+          Migrations Module
+          <span class="version">
+            
+          </span>
+        </strong>
+        
+          <br>
+          LostKobrakai/Migrations
+        
+      </div>
+    </div>
+  </a>
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            
+            <a href="https://github.com/LostKobrakai/Migrations/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/LostKobrakai/Migrations/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+      <div class="toc">
+        <ul>
+          
+            
+  <li>
+    <a class="" title="What is it" href="..">
+      What is it
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="current" title="How does it work" href="./">
+      How does it work
+    </a>
+    
+      
+        
+      
+      
+        <ul>
+          
+            <li class="anchor">
+              <a title="Evaluation (tldr;)" href="#evaluation-tldr">
+                Evaluation (tldr;)
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Workflow" href="#workflow">
+                Workflow
+              </a>
+            </li>
+          
+        </ul>
+      
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Examples" href="../examples/">
+      Examples
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Further Links" href="../links/">
+      Further Links
+    </a>
+    
+  </li>
+
+          
+        </ul>
+        
+          <hr>
+          <span class="section">The author</span>
+          <ul>
+            
+              
+              <li>
+                <a href="https://twitter.com/lostkobrakai" target="_blank" title="@lostkobrakai on Twitter">
+                  @lostkobrakai on Twitter
+                </a>
+              </li>
+            
+            
+              
+              <li>
+                <a href="https://github.com/LostKobrakai" target="_blank" title="@LostKobrakai on GitHub">
+                  @LostKobrakai on GitHub
+                </a>
+              </li>
+            
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+      </div>
+      <article class="article">
+        <div class="wrapper">
+          
+          <h1 id="how-does-all-of-this-work-on-a-higher-level-and-why-do-i-need-this">How does all of this work on a higher level and why do I need this?<a class="headerlink" href="#how-does-all-of-this-work-on-a-higher-level-and-why-do-i-need-this" title="Permanent link">#</a></h1>
+<p>Above is the question I need to answer here. So first of all the reason behind all this seemingly laborous migration files.</p>
+<p>Migrating changes between a running live system and a development system is super easy for changes to files, but hard if it comes to changes affecting the database. Consider a scenario where a site is live (and content is being created there) and you're developing new features for a few weeks or even month. When it comes to moving those changes to the live site you need a way to know which templates need updating and which fields might have been created. </p>
+<p>Doing those kind of updates by hand is slow (downtime for the site), can quite easily lead to minor or even mayor errors if something is not 100% correctly transfered and it requires a good amout of discipline before that, so all changes are actually catched in development, especially if multiple people work on the project.</p>
+<p>Migration files take the ambiguity out of the task by moving all those changes into executable code. This way they can be relyably recreated on the live system and even be automated. Additionally those migrations live in source control with all it's benefits and are also easy to share to collaborators.</p>
+<h2 id="evaluation-tldr">Evaluation (tldr;)<a class="headerlink" href="#evaluation-tldr" title="Permanent link">#</a></h2>
+<p><strong>Pro:</strong></p>
+<ul>
+<li>Automate changes</li>
+<li>Source control for them</li>
+<li>Simpler for collaboration</li>
+<li>Fast run/rollback to switch between configurations</li>
+</ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Migrations need to be created for each change affecting the db</li>
+<li>Changes directly via the Admin UI should be avoided</li>
+</ul>
+<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">#</a></h2>
+<p>Some of you might know database migrations from frameworks like Laravel or Rails. These specifically change the db schema of the application. That's not what we're doing. We won't edit db tables or otherwise interact with mysql directly as long as there's a ProcessWire API being far more simpler to use. </p>
+<p>On a high level migrations will rather look like in this table. </p>
+<table>
+    <thead>
+        <tr>
+            <th style="text-align: center;" colspan=2>update()</th>
+            <th style="text-align: center;" colspan=2>downgrade()</th>
+        </tr>
+    </thead>
+  <tr>
+    <td colspan=4>
+        <span style="display: inline-block; width: 100%; text-align: center;">Common Base</span>
+    </td>
+  </tr>
+  <tr>
+    <td>Create the author field</td>
+    <td>&darr;</td>
+    <td>&uarr;</td>
+    <td>Delete the author field</td>
+  </tr>
+  <tr>
+    <td>Create the blog-post template</td>
+    <td>&darr;</td>
+    <td>&uarr;</td>
+    <td>Delete the blog-post template</td>
+  </tr>
+  <tr>
+    <td>Install SchedulePages module</td>
+    <td>&darr;</td>
+    <td>&uarr;</td>
+    <td>Deinstall SchedulePages module</td>
+  </tr>
+  <tr>
+    <td>Add the blog root page</td>
+    <td>&darr;</td>
+    <td>&uarr;</td>
+    <td>Remove the blog-root</td>
+  </tr>
+  <tr>
+    <td colspan=4>
+        <span style="display: inline-block; width: 100%; text-align: center;">…</span>
+    </td>
+  </tr>
+</table>
+
+<p><em>[Work in Process]</em></p>
+          <aside class="copyright" role="note">
+            
+              Copyright (c) 2016 Benjamin Milde &ndash;
+            
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="http://squidfunk.github.io/mkdocs-material/" target="_blank">
+              Material
+            </a>
+            theme.
+          </aside>
+          
+            <footer class="footer">
+              
+  <nav class="pagination" aria-label="Footer">
+    <div class="previous">
+      
+        <a href=".." title="What is it">
+          <span class="direction">
+            Previous
+          </span>
+          <div class="page">
+            <div class="button button-previous" role="button" aria-label="Previous">
+              <i class="icon icon-back"></i>
+            </div>
+            <div class="stretch">
+              <div class="title">
+                What is it
+              </div>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+    <div class="next">
+      
+        <a href="../examples/" title="Examples">
+          <span class="direction">
+            Next
+          </span>
+          <div class="page">
+            <div class="stretch">
+              <div class="title">
+                Examples
+              </div>
+            </div>
+            <div class="button button-next" role="button" aria-label="Next">
+              <i class="icon icon-forward"></i>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+  </nav>
+
+            </footer>
+          
+        </div>
+      </article>
+      <div class="results" role="status" aria-live="polite">
+        <div class="scrollable">
+          <div class="wrapper">
+            <div class="meta"></div>
+            <div class="list"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      var base_url = '..';
+      var repo_id  = 'LostKobrakai/Migrations';
+    </script>
+    <script src="../assets/javascripts/application-997097ee0c.js"></script>
+    
+    
+      <script>
+        (function(i,s,o,g,r,a,m){
+          i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||
+          []).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;
+          m.parentNode.insertBefore(a,m)
+        })(window, document,
+          'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        /* General initialization */
+        ga('create', 'UA-81332773-1', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+        /* Track outbound links */
+        var buttons = document.querySelectorAll('a');
+        Array.prototype.map.call(buttons, function(item) {
+          if (item.host != document.location.host) {
+            item.addEventListener('click', function() {
+              var action = item.getAttribute('data-action') || 'follow';
+              ga('send', 'event', 'outbound', action, item.href);
+            });
+          }
+        });
+        /* Register handler to log search on blur */
+        var query = document.querySelector('.query');
+        query.addEventListener('blur', function() {
+          if (this.value) {
+            var path = document.location.pathname;
+            ga('send', 'pageview', path + '?q=' + this.value);
+          }
+        });
+      </script>
+    
+  </body>
+</html>

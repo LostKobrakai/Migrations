@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="no-js ie6"><![endif]-->
+<!--[if IE 7 ]><html class="no-js ie7"><![endif]-->
+<!--[if IE 8 ]><html class="no-js ie8"><![endif]-->
+<!--[if IE 9 ]><html class="no-js ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    
+      
+        <title>Migrations Module - ProcessWire Migrations module</title>
+      
+      
+        <meta name="description" content="ProcessWire Migrations module">
+      
+      
+        <link rel="canonical" href="https://LostKobrakai.github.io/Migrations/">
+      
+      
+        <meta name="author" content="Benjamin Milde">
+      
+    
+    <meta property="og:url" content="https://LostKobrakai.github.io/Migrations/">
+    <meta property="og:title" content="Migrations Module">
+    <meta property="og:image" content="https://LostKobrakai.github.io/Migrations//./images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Migrations Module">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+      <link rel="apple-touch-icon" href="./images/logo.png">
+    
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <style>
+      @font-face {
+      	font-family: 'Icon';
+      	src: url('./assets/fonts/icon.eot?52m981');
+      	src: url('./assets/fonts/icon.eot?#iefix52m981')
+               format('embedded-opentype'),
+      		   url('./assets/fonts/icon.woff?52m981')
+               format('woff'),
+      		   url('./assets/fonts/icon.ttf?52m981')
+               format('truetype'),
+      		   url('./assets/fonts/icon.svg?52m981#icon')
+               format('svg');
+      	font-weight: normal;
+      	font-style: normal;
+      }
+    </style>
+    <link rel="stylesheet" href="./assets/stylesheets/application-a422ff04cc.css">
+    
+      <link rel="stylesheet" href="./assets/stylesheets/palettes-05ab2406df.css">
+    
+    
+      
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Sans Pro:400,700|Source+Code+Pro">
+      <style>
+        body, input {
+          font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+        }
+        pre, code {
+          font-family: 'Source Code Pro', 'Courier New', 'Courier', monospace;
+        }
+      </style>
+    
+    
+      <link rel="stylesheet" href="./stylesheets/monokai.css">
+    
+      <link rel="stylesheet" href="./stylesheets/mystyles.css">
+    
+    <script src="./assets/javascripts/modernizr-4ab42b99fd.js"></script>
+    
+  </head>
+  
+  
+  
+  <body class="palette-primary-light-blue palette-accent-deep-orange">
+    
+      
+      
+    
+    <div class="backdrop">
+      <div class="backdrop-paper"></div>
+    </div>
+    <input class="toggle" type="checkbox" id="toggle-drawer">
+    <input class="toggle" type="checkbox" id="toggle-search">
+    <label class="toggle-button overlay" for="toggle-drawer"></label>
+    <header class="header">
+      <nav aria-label="Header">
+  <div class="bar default">
+    <div class="button button-menu" role="button" aria-label="Menu">
+      <label class="toggle-button icon icon-menu" for="toggle-drawer">
+        <span></span>
+      </label>
+    </div>
+    <div class="stretch">
+      <div class="title">
+        
+          <span class="path">
+            
+          </span>
+        
+        Migrations Module
+      </div>
+    </div>
+    
+      
+      <div class="button button-twitter" role="button" aria-label="Twitter">
+        <a href="https://twitter.com/lostkobrakai" title="@lostkobrakai on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+      </div>
+    
+    
+      
+      <div class="button button-github" role="button" aria-label="GitHub">
+        <a href="https://github.com/LostKobrakai" title="@LostKobrakai on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+      </div>
+    
+    <div class="button button-search" role="button" aria-label="Search">
+      <label class="toggle-button icon icon-search" title="Search" for="toggle-search"></label>
+    </div>
+  </div>
+  <div class="bar search">
+    <div class="button button-close" role="button" aria-label="Close">
+      <label class="toggle-button icon icon-back" for="toggle-search"></label>
+    </div>
+    <div class="stretch">
+      <div class="field">
+        <input class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+      </div>
+    </div>
+    <div class="button button-reset" role="button" aria-label="Search">
+      <button class="toggle-button icon icon-close" id="reset-search"></button>
+    </div>
+  </div>
+</nav>
+    </header>
+    <main class="main">
+      
+      <div class="drawer">
+        <nav aria-label="Navigation">
+  
+  <a href="https://github.com/LostKobrakai/Migrations" class="project">
+    <div class="banner">
+      
+        <div class="logo">
+          <img src="./images/logo.png">
+        </div>
+      
+      <div class="name">
+        <strong>
+          Migrations Module
+          <span class="version">
+            
+          </span>
+        </strong>
+        
+          <br>
+          LostKobrakai/Migrations
+        
+      </div>
+    </div>
+  </a>
+  <div class="scrollable">
+    <div class="wrapper">
+      
+        <ul class="repo">
+          <li class="repo-download">
+            
+            <a href="https://github.com/LostKobrakai/Migrations/archive/master.zip" target="_blank" title="Download" data-action="download">
+              <i class="icon icon-download"></i> Download
+            </a>
+          </li>
+          <li class="repo-stars">
+            <a href="https://github.com/LostKobrakai/Migrations/stargazers" target="_blank" title="Stargazers" data-action="star">
+              <i class="icon icon-star"></i> Stars
+              <span class="count">&ndash;</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
+      
+      <div class="toc">
+        <ul>
+          
+            
+  <li>
+    <a class="current" title="What is it" href=".">
+      What is it
+    </a>
+    
+      
+        
+      
+      
+        <ul>
+          
+            <li class="anchor">
+              <a title="Description" href="#description">
+                Description
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Migration Types" href="#migration-types">
+                Migration Types
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="CLI" href="#cli">
+                CLI
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Helper Functions" href="#helper-functions">
+                Helper Functions
+              </a>
+            </li>
+          
+        </ul>
+      
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="How does it work" href="workflow/">
+      How does it work
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Examples" href="examples/">
+      Examples
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Further Links" href="links/">
+      Further Links
+    </a>
+    
+  </li>
+
+          
+        </ul>
+        
+          <hr>
+          <span class="section">The author</span>
+          <ul>
+            
+              
+              <li>
+                <a href="https://twitter.com/lostkobrakai" target="_blank" title="@lostkobrakai on Twitter">
+                  @lostkobrakai on Twitter
+                </a>
+              </li>
+            
+            
+              
+              <li>
+                <a href="https://github.com/LostKobrakai" target="_blank" title="@LostKobrakai on GitHub">
+                  @LostKobrakai on GitHub
+                </a>
+              </li>
+            
+          </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+      </div>
+      <article class="article">
+        <div class="wrapper">
+          
+          <pre style="font-family: 'Source Code Pro'; color: #00AAFF; background-color: white; margin-top: -2.6em">
+    ___       ___       ___       ___       ___       ___       ___
+   /\__\     /\  \     /\  \     /\  \     /\  \     /\  \     /\  \
+  /::L_L_   _\:\  \   /::\  \   /::\  \   /::\  \    \:\  \   /::\  \
+ /:/L:\__\ /\/::\__\ /:/\:\__\ /::\:\__\ /::\:\__\   /::\__\ /::\:\__\
+ \/_/:/  / \::/\/__/ \:\:\/__/ \;:::/  / \/\::/  /  /:/\/__/ \:\:\/  /
+   /:/  /   \:\__\    \::/  /   |:\/__/    /:/  /   \/__/     \:\/  /
+   \/__/     \/__/     \/__/     \|__|     \/__/               \/__/
+</pre>
+
+<h1 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">#</a></h1>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h2>
+<p>There where various threads on the ProcessWire Forums about the topic on how to reasonably handle multiple dev/staging and live environments with ProcessWire and at best handle it as automatically as possible. A git based workflow makes it easy to handle files, but the pain point of migrating db changes has even lead to multiple requests of not handling the template/field setup in the db at all.</p>
+<p><img alt="Admin UI" src="./images/UI.png" /></p>
+<p>This module does help you to manage migration files, where any changes that affect the database can be stored in php files using just the simple <a href="https://processwire.com/api/ref/">ProcessWire API</a> at your disposal. It's not as nice as using the Admin UI directly, but certainly better than trying to migrate changes manually –  possibly weeks after adding the changes. Also there's always the option to create helper modules, which can export changes made in the Admin UI to something usable in those migration files. I'm using something like that to export template access changes into a json format.</p>
+<div class="admonition warning">
+<p class="admonition-title">Create a backup before running migrations!</p>
+<p>Your migrations will probably hold lot's of code, which does delete data. This module does not have any security measurements to prevent that. Be sure to test your migrations locally and save a database backup before running them.</p>
+</div>
+<h2 id="migration-types">Migration Types<a class="headerlink" href="#migration-types" title="Permanent link">#</a></h2>
+<p>There are currently four types of migrations:</p>
+<ul>
+<li>
+<p><strong>default (Migration)</strong><br />
+Default migrations are the most free form migrations. There's just a description and two functions – <code>update()</code> and <code>downgrade()</code>. What you're doing in those functions is totally up to you, but it's recommended to try the best to keep changes as reversible as possible. Meaning that running update() and downgrade() once should have as less effect on the installation as possible. The ProcessWire API is available exactly like in modules using the <code>$this-&gt;pages</code>, <code>$this-&gt;config</code>, … syntax.</p>
+</li>
+<li>
+<p><strong>FieldMigration</strong></p>
+</li>
+<li><strong>TemplateMigration</strong></li>
+<li><strong>ModuleMigration</strong><br />
+These make your live easier by providing a more declarative way of migrating the creation of Fields/Templates or the installation of modules. All the boilerplate is handled by the base classes these migrations do extend, so you don't need to think about <code>update()</code> and <code>downgrade()</code>. You can rather just describe the item you want to handle and the rest is been taken care of.</li>
+</ul>
+<h2 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">#</a></h2>
+<p>The module does include a CLI interface, which does allow the migrations to be run automatically by Continous Integration Systems or deployment scripts or just by yourself if you like the command-line. The script is located in the bin/ directory inside the module's folder. It does however require a composer package to work, which you can simply add by running <code>composer require league/climate</code> in your site directory (or the root directory for pw 3.0). Make sure to require composers autoload.php in your config.php for 2.x installations. </p>
+<p>The CLI does have a quite handy help page, which you get by running <code>php migrate -h</code> so I'm just adding the important bits of that here:</p>
+<pre>
+> php migrate -h
+
+[…]
+
+Usage: migrate [-h, --help] [-i info, --info info] [-m migrate, --migrate migrate] [-n new, --new new] 
+  [-nf newField, --newField newField] [-nm newModule, --newModule newModule] 
+  [-nt newTemplate, --newTemplate newTemplate] [-r rollback, --rollback rollback]
+
+Optional Arguments:
+    -m migrate, --migrate migrate
+        Run a specific migration or all new* ones if none given.
+        * From latest migrated to newest.
+    -r rollback, --rollback rollback
+        Undo a specific migration or the latest one if none given.
+    -n new, --new new
+        Bootstrap a new migrations file. Optionally you can already supply a description.
+    -nt newTemplate, --newTemplate newTemplate
+        Bootstrap a new template migrations file. Optionally you can already supply a description.
+    -nm newModule, --newModule newModule
+        Bootstrap a new module migrations file. Optionally you can already supply a description.
+    -nf newField, --newField newField
+        Bootstrap a new field migrations file. Optionally you can already supply a description.
+    -i info, --info info
+        Get detailed info about a migration.
+    -h, --help
+        Show all commands of the cli tool.
+</pre>
+
+<p>To run the CLI script from the project root simply add a file with the following content to the folder. This way you won't copy anything and it'll update with the module itself like normal.</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="c1">// Full or relative path to the module&#39;s cli</span>
+<span class="k">include_once</span> <span class="nx">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/site/modules/Migrations/bin/migrate&#39;</span><span class="p">;</span>
+</pre></div>
+
+
+<h2 id="helper-functions">Helper Functions<a class="headerlink" href="#helper-functions" title="Permanent link">#</a></h2>
+<p>There are already a handful of helper function included in the Migration base class, which tackle things I found to need way to much boilerplate for kinda simple changes. Read the code comments on what each of them does.</p>
+<div class="admonition note">
+<p class="admonition-title">The number of helper functions will probably grow over time.</p>
+</div>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * This does use @diogo&#39;s while loop technique to loop over all pages </span>
+<span class="sd"> * without getting memory exhaustion. </span>
+<span class="sd"> */</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">eachPageUncache</span><span class="p">(</span><span class="s2">&quot;template=toBeHidden&quot;</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$p</span><span class="p">){</span>
+  <span class="nv">$p</span><span class="o">-&gt;</span><span class="na">setAndSave</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="nx">Page</span><span class="o">::</span><span class="na">statusHidden</span><span class="p">);</span>
+<span class="p">});</span> 
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * $template, $field, $reference = null, $after = true</span>
+<span class="sd"> * The below function reads like this:</span>
+<span class="sd"> * In the template … add the field … relative to the field … in the position after/before</span>
+<span class="sd"> */</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">insertIntoTemplate</span><span class="p">(</span><span class="s1">&#39;basic-page&#39;</span><span class="p">,</span> <span class="s1">&#39;images&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span> 
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * Edit field settings in context of a template</span>
+<span class="sd"> */</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">editInTemplateContext</span><span class="p">(</span><span class="s1">&#39;basic-page&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$f</span><span class="p">,</span> <span class="nv">$template</span><span class="p">){</span>
+  <span class="nv">$f</span><span class="o">-&gt;</span><span class="na">label</span> <span class="o">=</span> <span class="s1">&#39;Headline&#39;</span><span class="p">;</span>
+<span class="p">});</span> 
+</pre></div>
+
+
+<h3 id="custom-helper-functions">Custom Helper Functions<a class="headerlink" href="#custom-helper-functions" title="Permanent link">#</a></h3>
+<p>You can create your own helper functions by using ProcessWire <a href="https://processwire.com/api/hooks/">Hooks</a>. These functions can then be used in your migrations.</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="c1">// in ready.php</span>
+<span class="nv">$wire</span><span class="o">-&gt;</span><span class="na">addHook</span><span class="p">(</span><span class="s1">&#39;Migration::renameHome&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nx">HookEvent</span> <span class="nv">$event</span><span class="p">){</span>
+    <span class="nv">$name</span> <span class="o">=</span> <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">arguments</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nv">$event</span><span class="o">-&gt;</span><span class="na">wire</span><span class="p">(</span><span class="s1">&#39;pages&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setAndSave</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// in the migration::update method</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">renameHome</span><span class="p">(</span><span class="s1">&#39;Root&#39;</span><span class="p">);</span> 
+<span class="c1">// in the migration::downgrade method</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">renameHome</span><span class="p">(</span><span class="s1">&#39;Home&#39;</span><span class="p">);</span> 
+</pre></div>
+          <aside class="copyright" role="note">
+            
+              Copyright (c) 2016 Benjamin Milde &ndash;
+            
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="http://squidfunk.github.io/mkdocs-material/" target="_blank">
+              Material
+            </a>
+            theme.
+          </aside>
+          
+            <footer class="footer">
+              
+  <nav class="pagination" aria-label="Footer">
+    <div class="previous">
+      
+    </div>
+    <div class="next">
+      
+        <a href="workflow/" title="How does it work">
+          <span class="direction">
+            Next
+          </span>
+          <div class="page">
+            <div class="stretch">
+              <div class="title">
+                How does it work
+              </div>
+            </div>
+            <div class="button button-next" role="button" aria-label="Next">
+              <i class="icon icon-forward"></i>
+            </div>
+          </div>
+        </a>
+      
+    </div>
+  </nav>
+
+            </footer>
+          
+        </div>
+      </article>
+      <div class="results" role="status" aria-live="polite">
+        <div class="scrollable">
+          <div class="wrapper">
+            <div class="meta"></div>
+            <div class="list"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      var base_url = '.';
+      var repo_id  = 'LostKobrakai/Migrations';
+    </script>
+    <script src="./assets/javascripts/application-997097ee0c.js"></script>
+    
+    
+      <script>
+        (function(i,s,o,g,r,a,m){
+          i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||
+          []).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;
+          m.parentNode.insertBefore(a,m)
+        })(window, document,
+          'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        /* General initialization */
+        ga('create', 'UA-81332773-1', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+        /* Track outbound links */
+        var buttons = document.querySelectorAll('a');
+        Array.prototype.map.call(buttons, function(item) {
+          if (item.host != document.location.host) {
+            item.addEventListener('click', function() {
+              var action = item.getAttribute('data-action') || 'follow';
+              ga('send', 'event', 'outbound', action, item.href);
+            });
+          }
+        });
+        /* Register handler to log search on blur */
+        var query = document.querySelector('.query');
+        query.addEventListener('blur', function() {
+          if (this.value) {
+            var path = document.location.pathname;
+            ga('send', 'pageview', path + '?q=' + this.value);
+          }
+        });
+      </script>
+    
+  </body>
+</html>

@@ -1,0 +1,51 @@
+site_name: Migrations Module
+site_description: 'ProcessWire Migrations module'
+site_author: 'Benjamin Milde'
+theme: 'material'
+
+repo_name: 'Migrations'
+repo_name: 'GitHub'
+repo_url: 'https://github.com/LostKobrakai/Migrations'
+site_url: 'https://LostKobrakai.github.io/Migrations'
+site_favicon: favicon.ico
+
+# Copyright
+copyright: 'Copyright (c) 2016 Benjamin Milde'
+
+# Documentation and theme
+docs_dir: 'docs'
+
+extra:
+  logo: 'images/logo.png'
+  github:
+    download_release: true
+  palette:
+    primary: 'light blue'
+    accent: 'deep orange'
+  font:
+    text: 'Source Sans Pro'
+    code: 'Source Code Pro'
+  author:
+    github: 'LostKobrakai'
+    twitter: 'lostkobrakai'
+google_analytics:
+  - 'UA-81332773-1'
+  - 'auto'
+markdown_extensions:
+  - codehilite:
+      css_class: codehilite
+      pygments_style: monokai
+  - admonition
+  - toc:
+      permalink: '#'
+
+# Page-Tree
+pages:
+  - What is it: index.md
+  - How does it work: workflow.md
+  - Examples: examples.md
+  - Further Links: links.md
+
+extra_css: 
+  - 'stylesheets/monokai.css'
+  - 'stylesheets/mystyles.css'

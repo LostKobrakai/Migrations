@@ -1,0 +1,4 @@
+- [Module in the ProcessWire modules directory](http://modules.processwire.com/modules/migrations/)
+- [Support Topic in the ProcessWire forums](https://processwire.com/talk/topic/13045-migrations/)
+- [Snippets Repository](https://github.com/LostKobrakai/MigrationSnippets)
+- [Module's Repository](https://github.com/LostKobrakai/Migrations)

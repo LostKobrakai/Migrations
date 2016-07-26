@@ -1,0 +1,4 @@
+# Don't include these files and directories when exporting archives
+*.gitattributes export-ignore
+/docs export-ignore
+/migrations export-ignore

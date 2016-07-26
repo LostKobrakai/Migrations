@@ -30,7 +30,7 @@ class Migrations extends WireData implements Module {
 		$base = __DIR__ . "/templates/$type.php.inc";
 		if(!is_file($base)) throw new WireException('Not a valid template for creation ' . $type);
 		$timestamp = time();
-		$new = $this->path . date('Y-m-d_H-i') . '.php';
+		$new = $this->path . date('Y-m-d_H-i-s') . '.php';
 		if(is_file($new)) throw new WireException('There\'s already a file existing for the current time.');
 
 		$content = file_get_contents($base);
@@ -86,28 +86,28 @@ class Migrations extends WireData implements Module {
 
 	public function classnameToFilename($classname) {
 		$filename = str_replace('Migration_', '', $classname);
-		$filename = preg_replace("/(\d{4}_\d{2}_\d{2})_(\d{2}_\d{2})/", "$1-$2", $filename);
+		$filename = preg_replace("/(\d{4}_\d{2}_\d{2})_(\d{2}_\d{2}(?:_\d{2})?)/", "$1-$2", $filename);
 		return $filename . '.php';
 	}
 
 	public function migrate($file) {
 		$stmt = $this->database->prepare("INSERT INTO {$this->className} (class) VALUES(:class)");
-		return $this->runAction($file, 'update', $stmt);
+		$this->runAction($file, 'update', $stmt);
 	}
 
 	public function rollback($file) {
 		$stmt = $this->database->prepare("DELETE FROM {$this->className} WHERE class=:class");
-		return $this->runAction($file, 'downgrade', $stmt);
+		$this->runAction($file, 'downgrade', $stmt);
 	}
 
 	public function migrateClass($classname) {
 		$path = $this->classnameToFilename($classname);
-		return $this->migrate($path);
+		$this->migrate($path);
 	}
 
 	public function rollbackClass($classname) {
 		$path = $this->classnameToFilename($classname);
-		return $this->rollback($path);
+		$this->rollback($path);
 	}
 
 	public function isMigrated($file)
@@ -147,21 +147,14 @@ class Migrations extends WireData implements Module {
 	}
 
 	private function runAction($path, $function, $stmt) {
-		try {
-			include_once($path);
-			$classname = $this->filenameToClassname($path);
+		include_once($path);
+		$classname = $this->filenameToClassname($path);
 
-			$migration = new $classname();
-			$migration->$function();
+		$migration = new $classname();
+		$migration->$function();
 
-			$stmt->bindParam(':class', $classname);
-			$stmt->execute();
-
-			return true;
-		} catch (Exception $e) {
-			$this->message("Could not migrate/rollback $classname. Got error " . get_class($e) . " with " . $e->getMessage());
-			return false;
-		}
+		$stmt->bindParam(':class', $classname);
+		$stmt->execute();
 	}
 
 	public function ___install ()

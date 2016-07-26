@@ -123,13 +123,23 @@ class ProcessMigrations extends Process {
 
 	public function ___executeExecute() {
 		$file = $this->evaluateID();
-		$this->m()->migrate($file);
+		try{
+			$this->m()->migrate($file);
+		} catch (Exception $e) {
+			$this->message("Could not migrate $file. Got error " . get_class($e) . " with " . $e->getMessage());
+			return false;
+		}
 		$this->session->redirect($this->page->url);
 	}
 
 	public function ___executeRevoke() {
 		$file = $this->evaluateID();
-		$this->m()->rollback($file);
+		try{
+			$this->m()->rollback($file);
+		} catch (Exception $e) {
+			$this->message("Could not rollback $file. Got error " . get_class($e) . " with " . $e->getMessage());
+			return false;
+		}
 		$this->session->redirect($this->page->url);
 	}
 

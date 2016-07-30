@@ -9,19 +9,19 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     
       
-        <title>Further Links - Migrations Module</title>
+        <title>How does it work - Migrations Module</title>
       
       
       
-        <link rel="canonical" href="https://LostKobrakai.github.io/Migrations/links/">
+        <link rel="canonical" href="https://LostKobrakai.github.io/Migrations/high-level/">
       
       
         <meta name="author" content="Benjamin Milde">
       
     
-    <meta property="og:url" content="https://LostKobrakai.github.io/Migrations/links/">
+    <meta property="og:url" content="https://LostKobrakai.github.io/Migrations/high-level/">
     <meta property="og:title" content="Migrations Module">
-    <meta property="og:image" content="https://LostKobrakai.github.io/Migrations/links//../images/logo.png">
+    <meta property="og:image" content="https://LostKobrakai.github.io/Migrations/high-level//../images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Migrations Module">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -102,7 +102,7 @@
             
           </span>
         
-        Further Links
+        How does it work
       </div>
     </div>
     
@@ -204,9 +204,34 @@
           
             
   <li>
-    <a class="" title="How does it work" href="../high-level/">
+    <a class="current" title="How does it work" href="./">
       How does it work
     </a>
+    
+      
+      
+        <ul>
+          
+            <li class="anchor">
+              <a title="The situation" href="#the-situation">
+                The situation
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Evaluation" href="#evaluation">
+                Evaluation
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Workflow" href="#workflow">
+                Workflow
+              </a>
+            </li>
+          
+        </ul>
+      
     
   </li>
 
@@ -240,12 +265,9 @@
           
             
   <li>
-    <a class="current" title="Further Links" href="./">
+    <a class="" title="Further Links" href="../links/">
       Further Links
     </a>
-    
-      
-      
     
   </li>
 
@@ -281,14 +303,74 @@
       <article class="article">
         <div class="wrapper">
           
-            <h1>Further Links</h1>
+            <h1>How does it work</h1>
           
-          <ul>
-<li><a href="http://modules.processwire.com/modules/migrations/">Module in the ProcessWire modules directory</a></li>
-<li><a href="https://processwire.com/talk/topic/13045-migrations/">Support Topic in the ProcessWire forums</a></li>
-<li><a href="https://github.com/LostKobrakai/MigrationSnippets">Snippets Repository</a></li>
-<li><a href="https://github.com/LostKobrakai/Migrations">Module's Repository</a></li>
+          <h2 id="the-situation">The situation<a class="headerlink" href="#the-situation" title="Permanent link">#</a></h2>
+<p>So why should you bother creating all those migration files instead of using the backend UI? The issue is that database changes work in a linear fashion, which is hardly "mergeable" automatically. If you don't need to merge different changes to your ProcessWire database, you won't need migrations. But chances are high that you do need to do that at some time.</p>
+<p>For example migrating changes between a running live system and a development system. It's super easy to push changes to template files or other code from development to the live server. But it's harder when it comes to changes affecting the database a.k.a changes to fields, templates or pages. Consider a scenario where a website is live and your client or other users are creating content online. At the same time you're developing new features for a few weeks or even month on your local machine. When it comes to moving those changes to the live site you need to merge your changes with the changes that happened on the live site.</p>
+<p>Doing those kind of updates by hand is slow (downtime for the site) and can quite easily lead to errors if something is not 100% correctly transfered. A good amout of discipline in documentation while adding changes locally can improve these issues, but it's still a manual process that does take some time. This is especially apparent if multiple people work on the project and changes come from different people.</p>
+<p>Migration files take the ambiguity out of this task by moving all needed changes into executable code. This way any database modifications can be reliably recreated on the live system and even be automated. Additionally those migrations can be added to source control – with all it's benefits – and are also easy to share to collaborators.</p>
+<h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">#</a></h2>
+<p>The TL;DR points for using the module and migration files.</p>
+<p><strong>Pro:</strong></p>
+<ul>
+<li>Automate changes</li>
+<li>Trackable by source control</li>
+<li>Simple to share</li>
+<li>Fast run/rollback to switch between configurations</li>
 </ul>
+<p><strong>Cons:</strong></p>
+<ul>
+<li>Migrations need to be created for each change affecting the db</li>
+<li>Changes directly via the Admin UI should be avoided</li>
+</ul>
+<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">#</a></h2>
+<p>So you get why you need to use migrations, but how does it actually work. In short: Not much different than before. You'll still add fields, change template settings or add "static" pages to your installation. Only that you won't do it via the backend UI, but rather by coding those changes with the <a href="https://processwire.com/api/ref/">ProcessWire API</a>. On a high level this will look like that:</p>
+<table>
+    <thead>
+        <tr>
+            <th style="text-align: center;" colspan=2>update()</th>
+            <th style="text-align: center;" colspan=2>downgrade()</th>
+        </tr>
+    </thead>
+  <tr>
+    <td colspan=4>
+        <span style="display: inline-block; width: 100%; text-align: center;">Common Base</span>
+    </td>
+  </tr>
+  <tr>
+    <td>Create the author field</td>
+    <td>&darr;</td>
+    <td>&uarr;</td>
+    <td>Delete the author field</td>
+  </tr>
+  <tr>
+    <td>Create the blog-post template</td>
+    <td>&darr;</td>
+    <td>&uarr;</td>
+    <td>Delete the blog-post template</td>
+  </tr>
+  <tr>
+    <td>Install SchedulePages module</td>
+    <td>&darr;</td>
+    <td>&uarr;</td>
+    <td>Deinstall SchedulePages module</td>
+  </tr>
+  <tr>
+    <td>Add the blog root page</td>
+    <td>&darr;</td>
+    <td>&uarr;</td>
+    <td>Remove the blog-root</td>
+  </tr>
+  <tr>
+    <td colspan=4>
+        <span style="display: inline-block; width: 100%; text-align: center;">…</span>
+    </td>
+  </tr>
+</table>
+
+<p>You'll probably understand the left part of the table &ndash; but why bother implementing the removal of those changes as well? This is really mainly a workflow improvement as well as a savety net. If you can always rollback your changes you can undo any potentially erroneous migrations at any time and probably much quicker than manually. </p>
+<p>Even if it's not about errors, you can also use this to improve local work, too. For example in a multi-branch git workflow one might often switch between different branches. This will update the codebase, but not the database state. By rolling back migrations of the current branch, then switching the git branch and migrating all changes for the other branch one can keep file and db modifications in sync.</p>
           <aside class="copyright" role="note">
             
               Copyright (c) 2016 Benjamin Milde &ndash;
@@ -307,7 +389,7 @@
   <nav class="pagination" aria-label="Footer">
     <div class="previous">
       
-        <a href="../examples/" title="Examples">
+        <a href=".." title="What is it">
           <span class="direction">
             Previous
           </span>
@@ -317,7 +399,7 @@
             </div>
             <div class="stretch">
               <div class="title">
-                Examples
+                What is it
               </div>
             </div>
           </div>
@@ -325,6 +407,22 @@
       
     </div>
     <div class="next">
+      
+        <a href="../workflow/" title="Usage">
+          <span class="direction">
+            Next
+          </span>
+          <div class="page">
+            <div class="stretch">
+              <div class="title">
+                Usage
+              </div>
+            </div>
+            <div class="button button-next" role="button" aria-label="Next">
+              <i class="icon icon-forward"></i>
+            </div>
+          </div>
+        </a>
       
     </div>
   </nav>

@@ -188,6 +188,15 @@
           
             
   <li>
+    <a class="" title="Installation" href="installation/">
+      Installation
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
     <a class="current" title="What is it" href=".">
       What is it
     </a>
@@ -197,12 +206,6 @@
       
       
         <ul>
-          
-            <li class="anchor">
-              <a title="Description" href="#description">
-                Description
-              </a>
-            </li>
           
             <li class="anchor">
               <a title="Migration Types" href="#migration-types">
@@ -230,8 +233,26 @@
           
             
   <li>
-    <a class="" title="How does it work" href="workflow/">
+    <a class="" title="How does it work" href="high-level/">
       How does it work
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Usage" href="workflow/">
+      Usage
+    </a>
+    
+  </li>
+
+          
+            
+  <li>
+    <a class="" title="Collaboration" href="collaboration/">
+      Collaboration
     </a>
     
   </li>
@@ -297,33 +318,29 @@
 </pre>
 
 <h1 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">#</a></h1>
-<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h2>
-<p>There where various threads on the ProcessWire Forums about the topic on how to reasonably handle multiple dev/staging and live environments with ProcessWire and at best handle it as automatically as possible. A git based workflow makes it easy to handle files, but the pain point of migrating db changes has even lead to multiple requests of not handling the template/field setup in the db at all.</p>
+<p>Migrations is a module to manage migration files, which in themselves allow you to handle all the development steps, which affect the ProcessWire database, across multiple enviroments. Be it a simple local development and online live environment by a single developer or multiple developers working in a team with multiple server environments to go through before shipping.</p>
+<p>Migration files are simple small class files, which utilize the <a href="https://processwire.com/api/ref/">ProcessWire API</a> to run any database affecting changes. It's not as nice as using the Admin UI directly, but certainly better than trying to migrate changes manually &ndash; possibly weeks after adding the changes. </p>
+<p>They are NOT database migrations like you might know them from frameworks like Laravel or Ruby on Rails. Those files won't setup any database tables or change table column types. It's about recreating what normally would be done via the backend UI. Creating a field, removing a field from a template, installing a module and so on.</p>
 <p><img alt="Admin UI" src="./images/UI.png" /></p>
-<p>This module does help you to manage migration files, where any changes that affect the database can be stored in php files using just the simple <a href="https://processwire.com/api/ref/">ProcessWire API</a> at your disposal. It's not as nice as using the Admin UI directly, but certainly better than trying to migrate changes manually –  possibly weeks after adding the changes. Also there's always the option to create helper modules, which can export changes made in the Admin UI to something usable in those migration files. I'm using something like that to export template access changes into a json format.</p>
-<div class="admonition warning">
-<p class="admonition-title">Create a backup before running migrations!</p>
-<p>Your migrations will probably hold lot's of code, which does delete data. This module does not have any security measurements to prevent that. Be sure to test your migrations locally and save a database backup before running them.</p>
-</div>
 <h2 id="migration-types">Migration Types<a class="headerlink" href="#migration-types" title="Permanent link">#</a></h2>
-<p>There are currently four types of migrations:</p>
+<p>There are currently four types of migrations shipped with the module:</p>
+<h3 id="default-migration"><strong>default (Migration)</strong><a class="headerlink" href="#default-migration" title="Permanent link">#</a></h3>
+<p>Default migrations are the most free form migrations. There's just a description and two functions – <code>update()</code> and <code>downgrade()</code>. What you're doing in those functions is totally up to you, but it's recommended to try the best to keep changes as reversible as possible. Meaning that running update() and downgrade() once should have as less effect on the installation as possible. The ProcessWire API is available exactly like in modules using the <code>$this-&gt;pages</code>, <code>$this-&gt;config</code>, … syntax.</p>
+<h3 id="createdelete-migrations"><strong>Create/Delete Migrations</strong><a class="headerlink" href="#createdelete-migrations" title="Permanent link">#</a></h3>
 <ul>
-<li>
-<p><strong>default (Migration)</strong><br />
-Default migrations are the most free form migrations. There's just a description and two functions – <code>update()</code> and <code>downgrade()</code>. What you're doing in those functions is totally up to you, but it's recommended to try the best to keep changes as reversible as possible. Meaning that running update() and downgrade() once should have as less effect on the installation as possible. The ProcessWire API is available exactly like in modules using the <code>$this-&gt;pages</code>, <code>$this-&gt;config</code>, … syntax.</p>
-</li>
-<li>
-<p><strong>FieldMigration</strong></p>
-</li>
+<li><strong>FieldMigration</strong></li>
 <li><strong>TemplateMigration</strong></li>
-<li><strong>ModuleMigration</strong><br />
-These make your live easier by providing a more declarative way of migrating the creation of Fields/Templates or the installation of modules. All the boilerplate is handled by the base classes these migrations do extend, so you don't need to think about <code>update()</code> and <code>downgrade()</code>. You can rather just describe the item you want to handle and the rest is been taken care of.</li>
+<li><strong>ModuleMigration</strong>  </li>
 </ul>
+<p>These make your live easier by providing a more declarative way of migrating the creation of Fields/Templates or the installation of modules. All the boilerplate is handled by the base classes these migrations do extend, so you don't need to think about <code>update()</code> and <code>downgrade()</code>. You can rather just describe the item you want to be handled and the rest is been taken care of.</p>
 <h2 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">#</a></h2>
-<p>The module does include a CLI interface, which does allow the migrations to be run automatically by Continous Integration Systems or deployment scripts or just by yourself if you like the command-line. The script is located in the bin/ directory inside the module's folder. It does however require a composer package to work, which you can simply add by running <code>composer require league/climate</code> in your site directory (or the root directory for pw 3.0). Make sure to require composers autoload.php in your config.php for 2.x installations. </p>
-<p>The CLI does have a quite handy help page, which you get by running <code>php migrate -h</code> so I'm just adding the important bits of that here:</p>
+<div class="admonition note">
+<p class="admonition-title">Install the module with composer to use the CLI<p>It will also install all the dependencies and symlink the script to the composer bin-dir. TL;DR it'll make things easier.</p>
+</p>
+</div>
+<p>The module does include a CLI interface, which does allow migrations to be run automatically by Continous Integration Systems or deployment scripts or just by yourself if you like the command-line. I suggest adding 'vendor/bin' to your $PATH variable. Then you can simply call the CLI script by <code>migrate -h</code> from your project root folder. Otherwise you'll need to call it like that: <code>./vendor/migrate -h</code>.</p>
 <pre>
-> php migrate -h
+> migrate -h
 
 […]
 
@@ -350,13 +367,6 @@ Optional Arguments:
     -h, --help
         Show all commands of the cli tool.
 </pre>
-
-<p>To run the CLI script from the project root simply add a file with the following content to the folder. This way you won't copy anything and it'll update with the module itself like normal.</p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="c1">// Full or relative path to the module&#39;s cli</span>
-<span class="k">include_once</span> <span class="nx">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/site/modules/Migrations/bin/migrate&#39;</span><span class="p">;</span>
-</pre></div>
-
 
 <h2 id="helper-functions">Helper Functions<a class="headerlink" href="#helper-functions" title="Permanent link">#</a></h2>
 <p>There are already a handful of helper function included in the Migration base class, which tackle things I found to need way to much boilerplate for kinda simple changes. Read the code comments on what each of them does.</p>
@@ -430,10 +440,26 @@ Optional Arguments:
   <nav class="pagination" aria-label="Footer">
     <div class="previous">
       
+        <a href="installation/" title="Installation">
+          <span class="direction">
+            Previous
+          </span>
+          <div class="page">
+            <div class="button button-previous" role="button" aria-label="Previous">
+              <i class="icon icon-back"></i>
+            </div>
+            <div class="stretch">
+              <div class="title">
+                Installation
+              </div>
+            </div>
+          </div>
+        </a>
+      
     </div>
     <div class="next">
       
-        <a href="workflow/" title="How does it work">
+        <a href="high-level/" title="How does it work">
           <span class="direction">
             Next
           </span>

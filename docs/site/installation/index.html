@@ -9,19 +9,19 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     
       
-        <title>Further Links - Migrations Module</title>
+        <title>Installation - Migrations Module</title>
       
       
       
-        <link rel="canonical" href="https://LostKobrakai.github.io/Migrations/links/">
+        <link rel="canonical" href="https://LostKobrakai.github.io/Migrations/installation/">
       
       
         <meta name="author" content="Benjamin Milde">
       
     
-    <meta property="og:url" content="https://LostKobrakai.github.io/Migrations/links/">
+    <meta property="og:url" content="https://LostKobrakai.github.io/Migrations/installation/">
     <meta property="og:title" content="Migrations Module">
-    <meta property="og:image" content="https://LostKobrakai.github.io/Migrations/links//../images/logo.png">
+    <meta property="og:image" content="https://LostKobrakai.github.io/Migrations/installation//../images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Migrations Module">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -102,7 +102,7 @@
             
           </span>
         
-        Further Links
+        Installation
       </div>
     </div>
     
@@ -186,9 +186,34 @@
           
             
   <li>
-    <a class="" title="Installation" href="../installation/">
+    <a class="current" title="Installation" href="./">
       Installation
     </a>
+    
+      
+      
+        <ul>
+          
+            <li class="anchor">
+              <a title="Composer (recommended)" href="#composer-recommended">
+                Composer (recommended)
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Modules Directory" href="#modules-directory">
+                Modules Directory
+              </a>
+            </li>
+          
+            <li class="anchor">
+              <a title="Other" href="#other">
+                Other
+              </a>
+            </li>
+          
+        </ul>
+      
     
   </li>
 
@@ -240,12 +265,9 @@
           
             
   <li>
-    <a class="current" title="Further Links" href="./">
+    <a class="" title="Further Links" href="../links/">
       Further Links
     </a>
-    
-      
-      
     
   </li>
 
@@ -281,14 +303,27 @@
       <article class="article">
         <div class="wrapper">
           
-            <h1>Further Links</h1>
+            <h1>Installation</h1>
           
-          <ul>
-<li><a href="http://modules.processwire.com/modules/migrations/">Module in the ProcessWire modules directory</a></li>
-<li><a href="https://processwire.com/talk/topic/13045-migrations/">Support Topic in the ProcessWire forums</a></li>
-<li><a href="https://github.com/LostKobrakai/MigrationSnippets">Snippets Repository</a></li>
-<li><a href="https://github.com/LostKobrakai/Migrations">Module's Repository</a></li>
-</ul>
+          <h2 id="composer-recommended">Composer (recommended)<a class="headerlink" href="#composer-recommended" title="Permanent link">#</a></h2>
+<p><em>Does require ProcessWire 2.8+</em><br />
+Run the following command in the root of your project and install the module via the backend after that:</p>
+<div class="codehilite"><pre><span></span>composer require lostkobrakai/migrations
+</pre></div>
+
+
+<p>Adding the module via composer has the benefit, that all dependencies (CLI) are automatically installed as well.</p>
+<p>If you don't have composer installed, have a look here on how to get it: <a href="https://getcomposer.org/doc/00-intro.md">Composer Installation</a></p>
+<h2 id="modules-directory">Modules Directory<a class="headerlink" href="#modules-directory" title="Permanent link">#</a></h2>
+<ol>
+<li>Log in to your ProcessWire admin and go to the Modules page.</li>
+<li>Go to the New tab and expand the Add Module From Directory section.</li>
+<li>Enter the Module Class Name: Migrations</li>
+<li>Click the Download and Install button.</li>
+</ol>
+<h2 id="other">Other<a class="headerlink" href="#other" title="Permanent link">#</a></h2>
+<p>If those above do not work for you use one of the other methods explained here:<br />
+<a href="http://modules.processwire.com/install-uninstall/">How-To Install or Uninstall Modules</a></p>
           <aside class="copyright" role="note">
             
               Copyright (c) 2016 Benjamin Milde &ndash;
@@ -307,24 +342,24 @@
   <nav class="pagination" aria-label="Footer">
     <div class="previous">
       
-        <a href="../examples/" title="Examples">
+    </div>
+    <div class="next">
+      
+        <a href=".." title="What is it">
           <span class="direction">
-            Previous
+            Next
           </span>
           <div class="page">
-            <div class="button button-previous" role="button" aria-label="Previous">
-              <i class="icon icon-back"></i>
-            </div>
             <div class="stretch">
               <div class="title">
-                Examples
+                What is it
               </div>
+            </div>
+            <div class="button button-next" role="button" aria-label="Next">
+              <i class="icon icon-forward"></i>
             </div>
           </div>
         </a>
-      
-    </div>
-    <div class="next">
       
     </div>
   </nav>

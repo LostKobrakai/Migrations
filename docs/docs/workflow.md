@@ -1,74 +1,23 @@
-# How does all of this work on a higher level and why do I need this?
+!!! note "Work in Progress"
 
-Above is the question I need to answer here. So first of all the reason behind all this seemingly laborous migration files.
+## Project Setup
 
-Migrating changes between a running live system and a development system is super easy for changes to files, but hard if it comes to changes affecting the database. Consider a scenario where a site is live (and content is being created there) and you're developing new features for a few weeks or even month. When it comes to moving those changes to the live site you need a way to know which templates need updating and which fields might have been created. 
+Migrations can be brough into projects of any state with one small requirement. Any enviroment running those migrations does need to start at a common base. For already running projects this will probably be the live server's database, as that's the one that cannot allow for any changes.
 
-Doing those kind of updates by hand is slow (downtime for the site), can quite easily lead to minor or even mayor errors if something is not 100% correctly transfered and it requires a good amout of discipline before that, so all changes are actually catched in development, especially if multiple people work on the project.
+If that baseline database is installed then one can start using migration files. Any new environment added to the project can simply start by installing that baseline as well and subsequently running all available migration files. This should result in the minimal setup to run your project. 
 
-Migration files take the ambiguity out of the task by moving all those changes into executable code. This way they can be relyably recreated on the live system and even be automated. Additionally those migrations live in source control with all it's benefits and are also easy to share to collaborators.
+## Backups
 
-## Evaluation (tldr;)
+!!! warning "Create a backup before running migrations"
 
-__Pro:__
+Your migrations will probably hold lot's of code, which does delete data. This module does not have any security measurements to prevent that. Be sure to test your migrations locally and save a database backup before running them.
 
-- Automate changes
-- Source control for them
-- Simpler for collaboration
-- Fast run/rollback to switch between configurations
+## Immutability of migration files
 
-__Cons:__
+!!! warning "Do not modify already shared migration files"
 
-- Migrations need to be created for each change affecting the db
-- Changes directly via the Admin UI should be avoided
+As soon as a migration file is shared and possibly run on multiple environments it should never been edited further. If there's an issue with one of them fix it with another migration. The only exception to that rule is if a migration does delete unrecoverable data, but that would obviously need to be communicated to other parties working with those migrations.
 
-## Workflow
+## Order and Collision
 
-Some of you might know database migrations from frameworks like Laravel or Rails. These specifically change the db schema of the application. That's not what we're doing. We won't edit db tables or otherwise interact with mysql directly as long as there's a ProcessWire API being far more simpler to use. 
-
-On a high level migrations will rather look like in this table. 
-
-<table>
-	<thead>
-		<tr>
-			<th style="text-align: center;" colspan=2>update()</th>
-			<th style="text-align: center;" colspan=2>downgrade()</th>
-		</tr>
-	</thead>
-  <tr>
-    <td colspan=4>
-    	<span style="display: inline-block; width: 100%; text-align: center;">Common Base</span>
-    </td>
-  </tr>
-  <tr>
-    <td>Create the author field</td>
-    <td>&darr;</td>
-    <td>&uarr;</td>
-    <td>Delete the author field</td>
-  </tr>
-  <tr>
-    <td>Create the blog-post template</td>
-    <td>&darr;</td>
-    <td>&uarr;</td>
-    <td>Delete the blog-post template</td>
-  </tr>
-  <tr>
-    <td>Install SchedulePages module</td>
-    <td>&darr;</td>
-    <td>&uarr;</td>
-    <td>Deinstall SchedulePages module</td>
-  </tr>
-  <tr>
-    <td>Add the blog root page</td>
-    <td>&darr;</td>
-    <td>&uarr;</td>
-    <td>Remove the blog-root</td>
-  </tr>
-  <tr>
-    <td colspan=4>
-    	<span style="display: inline-block; width: 100%; text-align: center;">…</span>
-    </td>
-  </tr>
-</table>
-
-*[Work in Process]*
+For cases where multiple people work on a site it does happen that two people edit the same thing. If that happens it's best to keep the order of migrations to merge them. Do a rollback to before both of those colliding changes and resolve the issue in the latest of those migrations or even in a new migration. The latter is especially adviseable if you'd need to edit a [already shared migration](#immutability-of-migration-files).

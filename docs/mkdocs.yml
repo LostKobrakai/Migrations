@@ -41,8 +41,11 @@ markdown_extensions:
 
 # Page-Tree
 pages:
+  - Installation: installation.md
   - What is it: index.md
-  - How does it work: workflow.md
+  - How does it work: high-level.md
+  - Usage: workflow.md
+  - Collaboration: collaboration.md
   - Examples: examples.md
   - Further Links: links.md
 

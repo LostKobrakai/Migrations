@@ -3,8 +3,24 @@
 
     
     <url>
+     <loc>https://LostKobrakai.github.io/Migrations/installation/</loc>
+     <lastmod>2016-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
      <loc>https://LostKobrakai.github.io/Migrations/</loc>
-     <lastmod>2016-07-26</lastmod>
+     <lastmod>2016-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://LostKobrakai.github.io/Migrations/high-level/</loc>
+     <lastmod>2016-07-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +28,15 @@
     
     <url>
      <loc>https://LostKobrakai.github.io/Migrations/workflow/</loc>
-     <lastmod>2016-07-26</lastmod>
+     <lastmod>2016-07-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://LostKobrakai.github.io/Migrations/collaboration/</loc>
+     <lastmod>2016-07-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -20,7 +44,7 @@
     
     <url>
      <loc>https://LostKobrakai.github.io/Migrations/examples/</loc>
-     <lastmod>2016-07-26</lastmod>
+     <lastmod>2016-07-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -28,7 +52,7 @@
     
     <url>
      <loc>https://LostKobrakai.github.io/Migrations/links/</loc>
-     <lastmod>2016-07-26</lastmod>
+     <lastmod>2016-07-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
     

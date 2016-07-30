@@ -9,19 +9,19 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     
       
-        <title>Further Links - Migrations Module</title>
+        <title>Collaboration - Migrations Module</title>
       
       
       
-        <link rel="canonical" href="https://LostKobrakai.github.io/Migrations/links/">
+        <link rel="canonical" href="https://LostKobrakai.github.io/Migrations/collaboration/">
       
       
         <meta name="author" content="Benjamin Milde">
       
     
-    <meta property="og:url" content="https://LostKobrakai.github.io/Migrations/links/">
+    <meta property="og:url" content="https://LostKobrakai.github.io/Migrations/collaboration/">
     <meta property="og:title" content="Migrations Module">
-    <meta property="og:image" content="https://LostKobrakai.github.io/Migrations/links//../images/logo.png">
+    <meta property="og:image" content="https://LostKobrakai.github.io/Migrations/collaboration//../images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Migrations Module">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -102,7 +102,7 @@
             
           </span>
         
-        Further Links
+        Collaboration
       </div>
     </div>
     
@@ -222,9 +222,22 @@
           
             
   <li>
-    <a class="" title="Collaboration" href="../collaboration/">
+    <a class="current" title="Collaboration" href="./">
       Collaboration
     </a>
+    
+      
+      
+        <ul>
+          
+            <li class="anchor">
+              <a title="Different DB states" href="#different-db-states">
+                Different DB states
+              </a>
+            </li>
+          
+        </ul>
+      
     
   </li>
 
@@ -240,12 +253,9 @@
           
             
   <li>
-    <a class="current" title="Further Links" href="./">
+    <a class="" title="Further Links" href="../links/">
       Further Links
     </a>
-    
-      
-      
     
   </li>
 
@@ -281,14 +291,17 @@
       <article class="article">
         <div class="wrapper">
           
-            <h1>Further Links</h1>
+            <h1>Collaboration</h1>
           
-          <ul>
-<li><a href="http://modules.processwire.com/modules/migrations/">Module in the ProcessWire modules directory</a></li>
-<li><a href="https://processwire.com/talk/topic/13045-migrations/">Support Topic in the ProcessWire forums</a></li>
-<li><a href="https://github.com/LostKobrakai/MigrationSnippets">Snippets Repository</a></li>
-<li><a href="https://github.com/LostKobrakai/Migrations">Module's Repository</a></li>
-</ul>
+          <p>The same issues, which arrise for indepentent dev and live environment are also true if you're working on a team. But not only do you need to reliably move changes from one environment to another, but actually you need to share changes both ways.</p>
+<p><img alt="Collaboration Diagram" src="../images/collab_diagram.svg" /></p>
+<p>Considering the scenario of the diagram and its two coworkers, which both made changes to the db structure. Now Jeff want to share his results with Christine. Not very hard if both sit next to each other and Jeff can shortly explain to Christine what needs to change. But what if it's holiday season and they'll not see each other because of overlapping vacations or one of them is a remote or freelance worker and a bit hard to reach in person.</p>
+<p>Migrations give each coworker a loose framework to apply those changes via coded files, so they can easily be shared to other coworkers by any VCS or other file sharing methods. Nothing will be lost in the communication and everyone can come back a few weeks later and still understand what happended in that specific change. Again applying those patches to the db is no longer a manual task as well. Therefore once a migration is created each coworker can apply them in seconds* to their own installation and spend more time testing for possible incompatibilities.</p>
+<p>Those migration files also remove the necessity inform coworkers about db changes. It's still a nice thing to do so, but (at least when using git) they'll also see the new migration file(s) in the changelog when merging new features into their own codebase. If they to so they can simply use the CLI tool of the module to run those new migrations and be good to move forward.</p>
+<p><em>* There might be longer running migrations, but it's probably not the norm.</em></p>
+<h2 id="different-db-states">Different DB states<a class="headerlink" href="#different-db-states" title="Permanent link">#</a></h2>
+<p>With that approach coworkers each work of of their own database with their own dummydata, but the same underlying template, field &amp; base-pages setup - because that is all build up only by the migrations on top of a common starting point. I think it's actually a good thing to not share the db, so everyone can work independently and additionally changes might actually be tested in more different situations that way. </p>
+<p>Just to illustrate that with a small example. Somebody in the team implements a blog and when doing so also adds some dummy posts to his installation. A coworker might not have these posts, runs the migrations and takes a look at the blog out of curiosity. He might notice that the case of an empty blog is not taken care of and possibly even finding some error.</p>
           <aside class="copyright" role="note">
             
               Copyright (c) 2016 Benjamin Milde &ndash;
@@ -307,7 +320,7 @@
   <nav class="pagination" aria-label="Footer">
     <div class="previous">
       
-        <a href="../examples/" title="Examples">
+        <a href="../workflow/" title="Usage">
           <span class="direction">
             Previous
           </span>
@@ -317,7 +330,7 @@
             </div>
             <div class="stretch">
               <div class="title">
-                Examples
+                Usage
               </div>
             </div>
           </div>
@@ -325,6 +338,22 @@
       
     </div>
     <div class="next">
+      
+        <a href="../examples/" title="Examples">
+          <span class="direction">
+            Next
+          </span>
+          <div class="page">
+            <div class="stretch">
+              <div class="title">
+                Examples
+              </div>
+            </div>
+            <div class="button button-next" role="button" aria-label="Next">
+              <i class="icon icon-forward"></i>
+            </div>
+          </div>
+        </a>
       
     </div>
   </nav>

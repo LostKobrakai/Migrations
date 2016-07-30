@@ -33,6 +33,8 @@ class Migration_2015_10_21_12_13 extends Migration {
 }
 ```
 
+## Simple Examples
+
 You might do lot's of different things in those migrations, but I'll just name some examples:
 
 ### Change a field or template setting  
@@ -41,11 +43,77 @@ You might do lot's of different things in those migrations, but I'll just name s
 :::php
 <?php
 
-test
+class Migration_2015_10_21_12_15 extends Migration {
+	
+	public static $description = "Change the blog-post template to use it's new alternative template file";
+
+	public function update() {
+		$t = $this->templates->get('blog-post');
+		$t->altFilename = 'blog-post-new.php';
+		$t->save();
+	}
+
+	public function downgrade() {
+		$t = $this->templates->get('blog-post');
+		$t->altFilename = 'blog-post.php';
+		$t->save();
+	}
+}
 ```
 
-- Add some new pages to the installation
-- Add a field to a tempate, which wasn't needed before
+### Add some new pages to the installation
+
+```
+:::php
+<?php
+
+class Migration_2015_10_21_12_16 extends Migration {
+	
+	public static $description = "Change the blog-post template to use it's new alternative template file";
+
+	public function update() {
+		$this->pages->add('basic-page', $this->pages->get('/'), 'about', array(
+			'title' => 'About me',
+			'summary' => 'A short summary about my life?',
+			'body' => "…"
+		));
+	}
+
+	public function downgrade() {
+		$about = $this->pages->get('template=basic-page, parent=1, name=about');
+		if(!$about instanceof Page) return;
+		$about->delete();
+	}
+}
+```
+
+### Add a field to a tempate, which wasn't needed before
+
+```
+:::php
+<?php
+
+class Migration_2015_10_21_12_16 extends Migration {
+	
+	public static $description = "Change the blog-post template to use it's new alternative template file";
+
+	public function update() {
+		$this->insertIntoTemplate('home', 'google_analytics', 'title');
+
+		$this->editInTemplateContext('home', 'google_analytics', function($f){
+			$f->columnWidth = 50;
+		});
+
+		$this->pages->get('/')->setAndSave('google_analytics', 'UA-XXXXX-XX');
+	}
+
+	public function downgrade() {
+		$t = $this->templates->get('home');
+		$t->fieldgroup->remove('google_analytics');
+		$t->fieldgroup->save();
+	}
+}
+```
 
 
 ## Specialized Migration Types

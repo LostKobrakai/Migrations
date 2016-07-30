@@ -1,10 +1,11 @@
 {
-  "name": "lostkobrakai/migrations",
-  "description": "Module to handle migration files in ProcessWire",
-  "homepage": "https://lostkobrakai.github.io/Migrations/",
-  "keywords": ["ProcessWire", "migration", "database"],
-  "type": "pw-module",
-  "license": "MIT",
+	"name": "lostkobrakai/migrations",
+	"description": "Module to handle migration files in ProcessWire",
+	"homepage": "https://lostkobrakai.github.io/Migrations/",
+	"keywords": ["ProcessWire", "migration", "database"],
+	"type": "pw-module",
+	"license": "MIT",
+	"bin": ["bin/migrate"],
 	"authors": [
 		{
 			"name": "Benjamin Milde",

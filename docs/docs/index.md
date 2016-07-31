@@ -8,7 +8,7 @@
    \/__/     \/__/     \/__/     \|__|     \/__/               \/__/
 </pre>
 
-# Intro
+# Intro [![Build Status](https://travis-ci.org/LostKobrakai/Migrations.svg?branch=master)](https://travis-ci.org/LostKobrakai/Migrations)
 
 Migrations is a module to manage migration files, which in themselves allow you to handle all the development steps, which affect the ProcessWire database, across multiple enviroments. Be it a simple local development and online live environment by a single developer or multiple developers working in a team with multiple server environments to go through before shipping.
 

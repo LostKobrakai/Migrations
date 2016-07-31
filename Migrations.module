@@ -86,7 +86,8 @@ class Migrations extends WireData implements Module {
 
 	public function classnameToFilename($classname) {
 		$filename = str_replace('Migration_', '', $classname);
-		$filename = preg_replace("/(\d{4}_\d{2}_\d{2})_(\d{2}_\d{2}(?:_\d{2})?)/", "$1-$2", $filename);
+		$filename = str_replace('_', '-', $filename);
+		$filename = preg_replace("/(\d{4}-\d{2}-\d{2})-(\d{2}-\d{2}(?:-\d{2})?)/", "$1_$2", $filename);
 		return $filename . '.php';
 	}
 
@@ -101,12 +102,12 @@ class Migrations extends WireData implements Module {
 	}
 
 	public function migrateClass($classname) {
-		$path = $this->classnameToFilename($classname);
+		$path = $this->path . $this->classnameToFilename($classname);
 		$this->migrate($path);
 	}
 
 	public function rollbackClass($classname) {
-		$path = $this->classnameToFilename($classname);
+		$path = $this->path . $this->classnameToFilename($classname);
 		$this->rollback($path);
 	}
 

@@ -16,5 +16,15 @@
 	"require": {
 		"hari/pw-module": "~1.0",
 		"league/climate": "^3.2"
-	}
+	},
+	"require-dev": {
+		"crysalead/kahlan": "^2.5"
+	},
+  "autoload-dev": {
+    "psr-4": {
+      "tests\\": "spec/"
+    },
+    "classmap": ["tests/wire/core", "tests/site/modules/Migrations"],
+    "exclude-from-classmap": ["tests/wire/core/compat2x/"]
+  }
 }

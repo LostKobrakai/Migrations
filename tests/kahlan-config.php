@@ -12,7 +12,7 @@ $args->argument('src', 'default', 'tests/site/modules/Migrations');
 
 Filter::register('processwire.globals', function ($chain){
     define("PROCESSWIRE_TEST_RUNNING", true);
-    $config = ProcessWire::buildConfig(__DIR__ . '/tests/');
+    $config = ProcessWire::buildConfig(__DIR__ . '/');
     $config->allowExceptions = true;
     $wire = new ProcessWire($config);
 

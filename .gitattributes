@@ -3,4 +3,5 @@
 /docs export-ignore
 /migrations export-ignore
 /spec export-ignore
+/tests export-ignore
 kahlan-config.php export-ignore

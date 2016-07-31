@@ -27,4 +27,4 @@ before_script:
   - composer install --no-interaction
   - if [[ $TRAVIS_PHP_VERSION =~ ^hhvm ]]; then echo 'xdebug.enable = On' >> /etc/hhvm/php.ini; fi
 
-script: vendor/bin/kahlan --reporter=verbose --coverage=4
+script: vendor/bin/kahlan --reporter=verbose --coverage=4 --config=./tests/kahlan-config.php

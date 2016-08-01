@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 $args = $this->args();
 $args->argument('reporter', 'default', 'verbose');
 $args->argument('src', 'default', 'tests/site/modules/Migrations');
+$args->set('exclude', ['League']);
 
 Filter::register('processwire.globals', function ($chain){
     define("PROCESSWIRE_TEST_RUNNING", true);

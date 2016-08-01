@@ -187,12 +187,25 @@ class Migrations extends WireData implements Module {
 	}
 
 	/**
+	 * Add the path to the folder if the file doesn't have an directory separator
+	 *
+	 * @todo Make this more windows failsave
+	 * @param string $file
+	 * @return string
+	 */
+	protected function ensurePath($file){
+		if(strpos($file, $this->path) === false) return $this->path . basename($file);
+		return $file;
+	}
+
+	/**
 	 * Get the static properties of a migration class to retrieve the description of of
 	 *
 	 * @param string $file
 	 * @return array
 	 */
 	public function getStatics($file) {
+		$file = $this->ensurePath($file);
 		include_once($file);
 
 		$className = $this->filenameToClassname($file);
@@ -207,6 +220,7 @@ class Migrations extends WireData implements Module {
 	 * @return string
 	 */
 	public function getType($file) {
+		$file = $this->ensurePath($file);
 		include_once($file);
 
 		$className = $this->filenameToClassname($file);

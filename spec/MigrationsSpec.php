@@ -19,8 +19,8 @@ describe('Migrations Module', function(){
 			$migrationFiles = $this->migrations->getMigrations();
 			$keys = array_keys($migrationFiles);
 
-			expect(count($migrationFiles))->toBeGreaterThan(1);
-			expect(reset($keys))->toBe('Migration_2016_07_20_12_10');
+			expect(count($migrationFiles))->toBeGreaterThan(0);
+			expect(reset($keys))->toBe('2016-07-20_12-10');
 			expect(reset($migrationFiles))->toContain('site/migrations/2016-07-20_12-10.php');
 		});
 

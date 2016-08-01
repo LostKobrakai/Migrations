@@ -16,8 +16,14 @@
 
 class Migrations extends WireData implements Module {
 
+	/**
+	 * @var string The path the migration files are stored in
+	 */
 	protected $path;
 
+	/**
+	 * Ran by ProcessWire when starting the module
+	 */
 	public function init() {
 		$this->path = $this->config->paths->root . "site/migrations/";
 		include_once("Migration.php");
@@ -26,12 +32,25 @@ class Migrations extends WireData implements Module {
 		include_once("ModuleMigration.php");
 	}
 
+	/**
+	 * Create a new 'empty' migration file
+	 *
+	 * @param null|string $desc Description to be added to the file
+	 * @param string      $type Type of the migration
+	 * @return string pathname
+	 * @throws WireException
+	 */
 	public function createNew($desc = null, $type = 'default') {
 		$base = __DIR__ . "/templates/$type.php.inc";
-		if(!is_file($base)) throw new WireException('Not a valid template for creation ' . $type);
+
+		if(!is_file($base))
+			throw new WireException('Not a valid template for creation ' . $type);
+
 		$timestamp = time();
-		$new = $this->path . date('Y-m-d_H-i-s') . '.php';
-		if(is_file($new)) throw new WireException('There\'s already a file existing for the current time.');
+		$new = $this->path . date('Y-m-d_H-i-s', $timestamp) . '.php';
+
+		if(is_file($new))
+			throw new WireException('There\'s already a file existing for the current time.');
 
 		$content = file_get_contents($base);
 		$content = wirePopulateStringTags($content, array(
@@ -43,12 +62,20 @@ class Migrations extends WireData implements Module {
 		return $new;
 	}
 
+	/**
+	 * Make sure the path is existing at all times.
+	 */
 	public function createPath()
 	{
-		if(!wireMkdir($this->path)) throw new WireException('Could not create path');
-		$this->message('Automatically created migrations path.');
+		if(!wireMkdir($this->path))
+			throw new WireException('Could not create path');
 	}
 
+	/**
+	 * Returns an array of filenames of all the migrations in $this->path
+	 *
+	 * @return array
+	 */
 	public function getMigrations() {
 		$files = array();
 
@@ -64,6 +91,11 @@ class Migrations extends WireData implements Module {
 		return $files;
 	}
 
+	/**
+	 * Returns an array of classnames of all the migrations, which are currently migrated
+	 *
+	 * @return array
+	 */
 	public function getRunMigrations()
 	{
 		$classes = [];
@@ -78,12 +110,24 @@ class Migrations extends WireData implements Module {
 		return $classes;
 	}
 
+	/**
+	 * Convert a filename to a classname
+	 *
+	 * @param string $path
+	 * @return string
+	 */
 	public function filenameToClassname($path) {
 		$classname = basename($path, '.php');
 		$classname = str_replace("-", "_", $classname);
 		return "Migration_" . $classname;
 	}
 
+	/**
+	 * Convert a classname to a filename
+	 *
+	 * @param string $classname
+	 * @return string
+	 */
 	public function classnameToFilename($classname) {
 		$filename = str_replace('Migration_', '', $classname);
 		$filename = str_replace('_', '-', $filename);
@@ -91,31 +135,63 @@ class Migrations extends WireData implements Module {
 		return $filename . '.php';
 	}
 
+	/**
+	 * Run a migration by filename
+	 *
+	 * @param string $file
+	 */
 	public function migrate($file) {
 		$stmt = $this->database->prepare("INSERT INTO {$this->className} (class) VALUES(:class)");
 		$this->runAction($file, 'update', $stmt);
 	}
 
+	/**
+	 * Rollback a migration by filename
+	 *
+	 * @param string $file
+	 */
 	public function rollback($file) {
 		$stmt = $this->database->prepare("DELETE FROM {$this->className} WHERE class=:class");
 		$this->runAction($file, 'downgrade', $stmt);
 	}
 
+	/**
+	 * Run a migration by it's classname
+	 *
+	 * @param string $classname
+	 */
 	public function migrateClass($classname) {
 		$path = $this->path . $this->classnameToFilename($classname);
 		$this->migrate($path);
 	}
 
+	/**
+	 * Rollback a migration by it's classname
+	 *
+	 * @param string $classname
+	 */
 	public function rollbackClass($classname) {
 		$path = $this->path . $this->classnameToFilename($classname);
 		$this->rollback($path);
 	}
 
+	/**
+	 * Check if a migration was already migrated
+	 *
+	 * @param string $file
+	 * @return bool
+	 */
 	public function isMigrated($file)
 	{
 		return in_array($this->filenameToClassname($file), $this->getRunMigrations());
 	}
 
+	/**
+	 * Get the static properties of a migration class to retrieve the description of of
+	 *
+	 * @param string $file
+	 * @return array
+	 */
 	public function getStatics($file) {
 		include_once($file);
 
@@ -124,6 +200,12 @@ class Migrations extends WireData implements Module {
 		return $class->getStaticProperties();
 	}
 
+	/**
+	 * Get the type of a migration file
+	 *
+	 * @param string $file
+	 * @return string
+	 */
 	public function getType($file) {
 		include_once($file);
 
@@ -134,6 +216,12 @@ class Migrations extends WireData implements Module {
 		return $type;
 	}
 
+	/**
+	 * Returns an array of all the latest migration files, which are not migrated
+	 * The filenames are sorted by their creation date
+	 *
+	 * @return array
+	 */
 	public function getLatestToMigrate()
 	{
 		$files = $this->getMigrations();	
@@ -147,6 +235,13 @@ class Migrations extends WireData implements Module {
 		return array_reverse($toRun);
 	}
 
+	/**
+	 * Run a migration/rollback action
+	 *
+	 * @param string $path
+	 * @param string $function
+	 * @param PDOStatement $stmt
+	 */
 	private function runAction($path, $function, $stmt) {
 		include_once($path);
 		$classname = $this->filenameToClassname($path);
@@ -158,6 +253,9 @@ class Migrations extends WireData implements Module {
 		$stmt->execute();
 	}
 
+	/**
+	 * Create the database to store ran migration classes in
+	 */
 	public function ___install ()
 	{
 		$sql = <<< _END
@@ -174,10 +272,12 @@ _END;
 		$this->database->query($sql);
 	}
 
+	/**
+	 * Delete the database on uninstall
+	 */
 	public function ___uninstall ()
 	{
 		$this->database->query("DROP TABLE {$this->className}");
 	}
-
 
 }

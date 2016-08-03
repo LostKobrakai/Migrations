@@ -1,7 +1,6 @@
 sudo: false
 language: php
 php:
-  - '5.4'
   - '5.5'
   - '5.6'
   - '7.0'
@@ -18,7 +17,6 @@ addons:
     - sed
 
 matrix:
-  fast_finish: true
   allow_failures:
     - php: hhvm
 
@@ -27,4 +25,4 @@ before_script:
   - composer install --no-interaction
   - if [[ $TRAVIS_PHP_VERSION =~ ^hhvm ]]; then echo 'xdebug.enable = On' >> /etc/hhvm/php.ini; fi
 
-script: vendor/bin/kahlan --reporter=verbose --coverage=4 --config=./tests/kahlan-config.php
+script: vendor/bin/kahlan --coverage=4 --config=./tests/kahlan-config.php

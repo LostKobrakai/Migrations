@@ -26,10 +26,10 @@ class Migrations extends WireData implements Module {
 	 */
 	public function init() {
 		$this->path = $this->config->paths->root . "site/migrations/";
-		include_once("Migration.php");
-		include_once("FieldMigration.php");
-		include_once("TemplateMigration.php");
-		include_once("ModuleMigration.php");
+		include_once(__DIR__ . "/Migration.php");
+		include_once(__DIR__ . "/FieldMigration.php");
+		include_once(__DIR__ . "/TemplateMigration.php");
+		include_once(__DIR__ . "/ModuleMigration.php");
 	}
 
 	/**
@@ -46,7 +46,7 @@ class Migrations extends WireData implements Module {
 		if(!is_file($base))
 			throw new WireException('Not a valid template for creation ' . $type);
 
-		$timestamp = time();
+		$timestamp = $this->getTime();
 		$new = $this->path . date('Y-m-d_H-i-s', $timestamp) . '.php';
 
 		if(is_file($new))
@@ -60,6 +60,14 @@ class Migrations extends WireData implements Module {
 		file_put_contents($new, $content);
 
 		return $new;
+	}
+
+	/**
+	 * Only for testing reasons -.-
+	 */
+	protected function getTime ()
+	{
+		return time();
 	}
 
 	/**
@@ -83,6 +91,7 @@ class Migrations extends WireData implements Module {
 
 		foreach (new DirectoryIterator($this->path) as $fileInfo) {
 			if($fileInfo->isDot() || $fileInfo->isDir()) continue;
+			if(substr($fileInfo->getBasename(), 0, 1) === '.') continue;
 
 			$files[$fileInfo->getBasename(".php")] = $fileInfo->getPathname();
 		}
@@ -95,17 +104,15 @@ class Migrations extends WireData implements Module {
 	 * Returns an array of classnames of all the migrations, which are currently migrated
 	 *
 	 * @return array
+	 * @throws WireException
 	 */
 	public function getRunMigrations()
 	{
 		$classes = [];
-		try{
-			$stmt = $this->database->query("SELECT * FROM {$this->className}");
-			$data = $stmt->fetchAll(PDO::FETCH_OBJ);
-			foreach($data as $item) $classes[] = $item->class;
-		}catch(Exception $e){
-			throw new WireException('Cannot load migrations table.');
-		}
+
+		$stmt = $this->database->query("SELECT * FROM {$this->className}");
+		$data = $stmt->fetchAll(PDO::FETCH_OBJ);
+		foreach($data as $item) $classes[] = $item->class;
 
 		return $classes;
 	}

@@ -1,30 +1,46 @@
 {
-	"name": "lostkobrakai/migrations",
-	"description": "Module to handle migration files in ProcessWire",
-	"homepage": "https://lostkobrakai.github.io/Migrations/",
-	"keywords": ["ProcessWire", "migration", "database"],
-	"type": "pw-module",
-	"license": "MIT",
-	"bin": ["bin/migrate"],
-	"authors": [
-		{
-			"name": "Benjamin Milde",
-			"homepage": "https://kobrakai.de/",
-			"role": "Developer"
-		}
-	],
-	"require": {
-		"hari/pw-module": "~1.0",
-		"league/climate": "^3.2"
-	},
-	"require-dev": {
-		"crysalead/kahlan": "^2.5"
-	},
+  "name": "lostkobrakai/migrations",
+  "description": "Module to handle migration files in ProcessWire",
+  "homepage": "https://lostkobrakai.github.io/Migrations/",
+  "keywords": [
+    "ProcessWire",
+    "migration",
+    "database"
+  ],
+  "type": "pw-module",
+  "license": "MIT",
+  "bin": [
+    "bin/migrate"
+  ],
+  "authors": [
+    {
+      "name": "Benjamin Milde",
+      "homepage": "https://kobrakai.de/",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "hari/pw-module": "~1.0",
+    "league/climate": "^3.2"
+  },
+  "require-dev": {
+    "crysalead/kahlan": "^2.5"
+  },
   "autoload-dev": {
     "psr-4": {
       "tests\\": "spec/"
     },
-    "classmap": ["tests/wire/core", "tests/site/modules/Migrations"],
-    "exclude-from-classmap": ["tests/wire/core/compat2x/"]
+    "classmap": [
+      "tests/wire/core",
+      "tests/site/modules/Migrations"
+    ],
+    "files": [
+      "tests/wire/core/Functions.php",
+      "tests/wire/core/Interfaces.php",
+      "tests/wire/core/LanguageFunctions.php"
+    ],
+    "exclude-from-classmap": [
+      "tests/wire/core/compat2x/"
+    ]
   }
 }

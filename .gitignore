@@ -3,6 +3,12 @@ vendor/
 
 .idea/
 
+tests/
+!tests/install.json
+!tests/install_json
+!tests/setup.sh
+!tests/kahlan-config.php
+
 *.DS_Store
 .AppleDouble
 .LSOverride

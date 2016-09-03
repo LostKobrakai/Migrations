@@ -227,6 +227,9 @@ else if($climate->arguments->defined('newTemplate'))
 // --newField
 else if($climate->arguments->defined('newField'))
 	$__new($climate, $climate->arguments->get('newField'), 'field');
+// --newModule
+else if($climate->arguments->defined('newModule'))
+	$__new($climate, $climate->arguments->get('newModule'), 'module');
 // --new
 else if($climate->arguments->defined('new'))
 	$__new($climate, $climate->arguments->get('new'), 'default');

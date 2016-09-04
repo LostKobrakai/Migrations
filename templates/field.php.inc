@@ -4,9 +4,9 @@ class {classname} extends FieldMigration {
 
 	public static $description = "{description}";
 
-	protected function getFieldName(){ /*return 'body';*/ }
+	protected function getFieldName(){ return '{fieldName}'; }
 
-	protected function getFieldType(){ /*return 'FieldtypeText';*/ }
+	protected function getFieldType(){ return '{fieldType}'; }
 
 	protected function fieldSetup(Field $f){
 		//$f->label = 'Bodytext';

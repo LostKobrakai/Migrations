@@ -21,6 +21,14 @@ class Migrations extends WireData implements Module {
 	 */
 	protected $path;
 
+	protected $creationDefaultData = [
+		'description' => '',
+		'fieldName' => '',
+		'fieldType' => '',
+		'templateName' => '',
+		'moduleName' => ''
+	];
+
 	/**
 	 * Ran by ProcessWire when starting the module
 	 */
@@ -35,12 +43,12 @@ class Migrations extends WireData implements Module {
 	/**
 	 * Create a new 'empty' migration file
 	 *
-	 * @param null|string $desc Description to be added to the file
-	 * @param string      $type Type of the migration
+	 * @param string $type Type of the migration
+	 * @param array  $type Data to be supplied to the templates
 	 * @return string pathname
 	 * @throws WireException
 	 */
-	public function createNew($desc = null, $type = 'default') {
+	public function createNew($type = 'default', array $options = []) {
 		$base = __DIR__ . "/templates/$type.php.inc";
 
 		if(!is_file($base))
@@ -52,11 +60,15 @@ class Migrations extends WireData implements Module {
 		if(is_file($new))
 			throw new WireException('There\'s already a file existing for the current time.');
 
+		$options = array_merge($this->creationDefaultData, $options);
+		array_walk($options, function(&$string){
+			$string = addcslashes($string, '"\\');
+		});
+
 		$content = file_get_contents($base);
-		$content = wirePopulateStringTags($content, array(
-			'classname' => $this->filenameToClassname($new),
-			'description' => addcslashes($desc, '"\\')
-		));
+		$content = wirePopulateStringTags($content, array_merge($options, array(
+			'classname' => $this->filenameToClassname($new)
+		)));
 		file_put_contents($new, $content);
 
 		return $new;
@@ -282,11 +294,11 @@ class Migrations extends WireData implements Module {
 		$sql = <<< _END
 
 		CREATE TABLE {$this->className} (
-			id int unsigned NOT NULL auto_increment,
-			class varchar(255) NOT NULL DEFAULT '',
+			`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+			`class` varchar(250) NOT NULL,
 			PRIMARY KEY(id),
 			UNIQUE KEY(class)
-		) ENGINE = MYISAM;
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 _END;
 

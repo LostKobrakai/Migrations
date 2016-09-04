@@ -21,10 +21,15 @@
   ],
   "require": {
     "hari/pw-module": "~1.0",
-    "league/climate": "^3.2"
+    "symfony/console": "^3.1"
   },
   "require-dev": {
     "crysalead/kahlan": "^2.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "ProcessWire\\Migrations\\": "src/"
+    }
   },
   "autoload-dev": {
     "psr-4": {

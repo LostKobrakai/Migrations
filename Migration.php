@@ -62,7 +62,8 @@ abstract class Migration extends Wire{
 	}
 
 	/**
-	 * Insert a field into a template optionally at a specific position.
+	 * Removes a field from a template.
+	 * Also removes all data for that field from pages using the template.
 	 *
 	 * @param Template|string   $template
 	 * @param Field|string      $field

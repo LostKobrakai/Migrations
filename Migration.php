@@ -62,6 +62,23 @@ abstract class Migration extends Wire{
 	}
 
 	/**
+	 * Removes a field from a template.
+	 * Also removes all data for that field from pages using the template.
+	 *
+	 * @param Template|string   $template
+	 * @param Field|string      $field
+	 * @return bool     $success (true => success, false => failure)
+	 * @throws WireException
+	 */
+	protected function removeFromTemplate($template, $field) {
+		$t = $this->getTemplate($template);
+		$f = $this->getField($field);
+		$success = $t->fieldgroup->remove($f);
+		$t->fieldgroup->save();
+		return $success;
+	}
+
+	/**
 	 * Edit a field in template context
 	 * 
 	 * @param Template|string $template

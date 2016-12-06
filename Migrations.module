@@ -283,7 +283,7 @@ class Migrations extends WireData implements Module {
 
 		CREATE TABLE {$this->className} (
 			id int unsigned NOT NULL auto_increment,
-			class varchar(255) NOT NULL DEFAULT '',
+			class varchar(250) NOT NULL DEFAULT '',
 			PRIMARY KEY(id),
 			UNIQUE KEY(class)
 		) ENGINE = MYISAM;

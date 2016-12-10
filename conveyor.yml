@@ -1,0 +1,20 @@
+---
+testTags:
+  - "2.7"
+  - "3.0"
+
+# Copy the needed files to the test instances
+copySources:
+  - source: "./*"
+    destination: "site/modules/Migrations/"
+  - source: "spec/general.spec.php"
+    destination: "spec/general.spec.php"
+  - source: "spec/migrations/*"
+    destination: "site/migrations/"
+
+beforeCmds:
+  - composer require kahlan/kahlan
+
+# The command to trigger the test
+# Executed on the root folder
+testCmd: cd $PW_PATH && ./vendor/bin/kahlan

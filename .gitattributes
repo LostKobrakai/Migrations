@@ -4,3 +4,6 @@
 /migrations export-ignore
 /spec export-ignore
 kahlan-config.php export-ignore
+.travis.db.yml export-ignore
+.travis.yml export-ignore
+conveyor.yml export-ignore

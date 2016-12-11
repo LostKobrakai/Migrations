@@ -24,6 +24,6 @@
     "league/climate": "^3.2"
   },
   "require-dev": {
-    "lostkobrakai/conveyor": "^0.1.0"
+    "lostkobrakai/conveyor": "^0.1.3"
   }
 }

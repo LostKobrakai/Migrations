@@ -158,7 +158,7 @@ class Migration_2015_10_21_12_15 extends FieldMigration {
 		$f->inputType = 'number';
 
 		// Add this field after the date field in the event template
-		$this->insertIntoTemplate('event', 'date', $f->name);
+		$this->insertIntoTemplate('event', $f->name, 'date');
 	}
 }
 ```

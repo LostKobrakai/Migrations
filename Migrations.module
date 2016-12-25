@@ -16,6 +16,8 @@
 
 class Migrations extends WireData implements Module {
 
+	const dbTableName = 'migrations';
+
 	/**
 	 * @var string The path the migration files are stored in
 	 */
@@ -110,7 +112,8 @@ class Migrations extends WireData implements Module {
 	{
 		$classes = [];
 
-		$stmt = $this->database->query("SELECT * FROM {$this->className}");
+		$table = self::dbTableName;
+		$stmt = $this->database->query("SELECT * FROM {$table}");
 		$data = $stmt->fetchAll(PDO::FETCH_OBJ);
 		foreach($data as $item) $classes[] = $item->class;
 
@@ -148,7 +151,8 @@ class Migrations extends WireData implements Module {
 	 * @param string $file
 	 */
 	public function migrate($file) {
-		$stmt = $this->database->prepare("INSERT INTO {$this->className} (class) VALUES(:class)");
+		$table = self::dbTableName;
+		$stmt = $this->database->prepare("INSERT INTO {$table} (class) VALUES(:class)");
 		$this->runAction($file, 'update', $stmt);
 	}
 
@@ -158,7 +162,8 @@ class Migrations extends WireData implements Module {
 	 * @param string $file
 	 */
 	public function rollback($file) {
-		$stmt = $this->database->prepare("DELETE FROM {$this->className} WHERE class=:class");
+		$table = self::dbTableName;
+		$stmt = $this->database->prepare("DELETE FROM {$table} WHERE class=:class");
 		$this->runAction($file, 'downgrade', $stmt);
 	}
 
@@ -279,15 +284,14 @@ class Migrations extends WireData implements Module {
 	 */
 	public function ___install ()
 	{
+		$table = self::dbTableName;
 		$sql = <<< _END
-
-		CREATE TABLE {$this->className} (
-			id int unsigned NOT NULL auto_increment,
-			class varchar(250) NOT NULL DEFAULT '',
-			PRIMARY KEY(id),
-			UNIQUE KEY(class)
-		) ENGINE = MYISAM;
-
+CREATE TABLE $table (
+	id int unsigned NOT NULL auto_increment,
+	class varchar(250) NOT NULL DEFAULT '',
+	PRIMARY KEY(id),
+	UNIQUE KEY(class)
+) ENGINE = MYISAM;
 _END;
 
 		$this->database->query($sql);
@@ -298,7 +302,24 @@ _END;
 	 */
 	public function ___uninstall ()
 	{
-		$this->database->query("DROP TABLE {$this->className}");
+		$table = self::dbTableName;
+		$this->database->query("DROP TABLE {$table};");
+	}
+
+	/**
+	 * Run on updates
+	 *
+	 * @param $fromVersion
+	 * @param $toVersion
+	 * @throws WireException
+	 */
+	public function ___upgrade($fromVersion, $toVersion)
+	{
+		// Update table name to lowercase
+		if(version_compare($fromVersion, "0.1.5") <= 0) {
+			$table = self::dbTableName;
+			$this->database->query("RENAME TABLE {$this->className} TO {$table};");
+		}
 	}
 
 }

@@ -317,7 +317,7 @@
    \/__/     \/__/     \/__/     \|__|     \/__/               \/__/
 </pre>
 
-<h1 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">#</a></h1>
+<h1 id="intro">Intro <a href="https://travis-ci.org/LostKobrakai/Migrations"><img alt="Build Status" src="https://travis-ci.org/LostKobrakai/Migrations.svg?branch=master" /></a><a class="headerlink" href="#intro" title="Permanent link">#</a></h1>
 <p>Migrations is a module to manage migration files, which in themselves allow you to handle all the development steps, which affect the ProcessWire database, across multiple enviroments. Be it a simple local development and online live environment by a single developer or multiple developers working in a team with multiple server environments to go through before shipping.</p>
 <p>Migration files are simple small class files, which utilize the <a href="https://processwire.com/api/ref/">ProcessWire API</a> to run any database affecting changes. It's not as nice as using the Admin UI directly, but certainly better than trying to migrate changes manually &ndash; possibly weeks after adding the changes. </p>
 <p>They are NOT database migrations like you might know them from frameworks like Laravel or Ruby on Rails. Those files won't setup any database tables or change table column types. It's about recreating what normally would be done via the backend UI. Creating a field, removing a field from a template, installing a module and so on.</p>

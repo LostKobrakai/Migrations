@@ -25,4 +25,4 @@ before_script:
   - "echo '' >> conveyor.yml"
   - "cat .travis.db.yml >> conveyor.yml"
 
-script: vendor/bin/conveyor -vvv
+script: vendor/bin/conveyor -v

@@ -1,6 +1,6 @@
 {
 	"title": "Migrations",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"summary": "Module to handle migration files in ProcessWire",
 	"author": "Benjamin Milde",
 	"href": "https://lostkobrakai.github.io/Migrations/",

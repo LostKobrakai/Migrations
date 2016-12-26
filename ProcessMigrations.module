@@ -1,6 +1,6 @@
 <?php
 /**
- * Migrations (0.0.1)
+ * Migrations
  * 
  * 
  * @author Benjamin Milde
@@ -18,6 +18,9 @@ class ProcessMigrations extends Process {
 
 	protected $migrations = null;
 
+	/**
+	 * @return Migrations
+	 */
 	protected function m() {
 		if(!is_null($this->migrations)) return $this->migrations;
 		$this->migrations = $this->wire('modules')->get('Migrations');
@@ -75,26 +78,22 @@ class ProcessMigrations extends Process {
 			return $out;
 		}
 
+		$iconMigrate = "<i class='fa fa-play' title='Migrate'></i>";
+		$iconRollback = "<i class='fa fa-history' title='Rollback'></i>";
+
 		foreach ($files as $file) {
-			$staticVars = $this->m()->getStatics($file);
-			$basename = basename($file);
-			$type = substr($this->m()->getType($file), 0, 1);
-			
+			/** @var Migrationfile $file */
 			$data = array();
-			$data[] = basename($file, '.php') . ' <span style="color: #ddd">' . $type . '</span>';
-			$data[] = nl2br($staticVars["description"]);
-			$migrated = $this->m()->isMigrated($file);
+			$data[] = $file->shortname . ' <span style="color: #ddd">' . substr($file->type, 0, 1) . '</span>';
+			$data[] = nl2br($file->description);
 
-			$iconMigrate = "<i class='fa fa-play' title='Migrate'></i>";
-			$iconRollback = "<i class='fa fa-history' title='Rollback'></i>";
-
-			!$migrated  
-				? $data[$iconMigrate] = "execute/?id=" . md5($basename) 
-				: $data[$iconRollback] = "revoke/?id=" . md5($basename);
-
-			$migrated  
-				? $data[] = '<span style="color: limegreen">Migrated</span>' 
-				: $data[] = '<span style="color: #ddd">-</span>';
+			if ($file->migrated) {
+				$data[$iconRollback] = "revoke/?id=" . md5($file->filename);
+				$data[] = '<span style="color: limegreen">Migrated</span>';
+			} else {
+				$data[$iconMigrate] = "execute/?id=" . md5($file->filename);
+				$data[] = '<span style="color: #ddd">-</span>';
+			}
 
 			$table->row($data);
 		}
@@ -151,33 +150,22 @@ class ProcessMigrations extends Process {
 		$files = $this->m()->getMigrations();
 
 		foreach ($files as $f) {
-			if(md5(basename($f)) === $id) $file = $f;
+			/** @var Migrationfile $f */
+			if(md5($f->filename) === $id)
+				return $f->filename;
 		}
 
-		if(!$file){
-			$this->error("Couldn't find file!");
-			$this->message($id);
-			$this->message($files);
-			$this->session->redirect($this->page->url);
-		}
-
-		return $file;
+		$this->error("Couldn't find file!");
+		$this->message($id);
+		$this->message($files);
+		$this->session->redirect($this->page->url);
 	}
 
 	public function ___executeMigrate()
 	{	
-		$toRun = $this->m()->getLatestToMigrate();
-
-		if(!$count = count($toRun)){
-			$this->message('Nothing to migrate');
-			$this->session->redirect($this->page->url);
-		}
-
-		foreach ($toRun as $file) {
-			if($this->m()->isMigrated($file)) continue;
-			$this->m()->migrate($file);
-			$this->message("Ran migration on " . basename($file) . ".");
-		}
+		($files = $this->m()->migrate('*', true))
+			? $this->message("Ran migration on $files->count latest migrations.")
+			: $this->message('Nothing to migrate');
 
 		$this->session->redirect($this->page->url);
 	}
@@ -197,7 +185,9 @@ class ProcessMigrations extends Process {
 			if(!in_array($type, array_keys($types))) $this->session->redirect($this->page->url);
 
 			try{
-				$file = $this->m()->createNew($desc, $type);
+				$file = $this->m()->createNew($type, array(
+					'description' => $desc
+				));
 				$this->message("Created new migration " . basename($file));
 			} catch(WireException $e) {
 				$this->error($e->getMessage());

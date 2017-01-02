@@ -22,7 +22,8 @@ abstract class ModuleMigration extends Migration{
 
 	public function downgrade() {
 		$this->modules->resetCache();
-		if(!$this->modules->isUninstallable($this->getModuleName())) return;
+		$name = $this->getModuleName();
+		if(!$this->modules->isUninstallable($name)) return;
 		$this->modules->uninstall($name);
 	}
 

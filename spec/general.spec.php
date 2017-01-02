@@ -78,5 +78,17 @@ describe('General settings', function() use($wire) {
 
 			$this->migrations->createPath();
 		});
+
+		it('should uninstall modules on downgrade successfully', function () {
+			expect($this->modules->isInstalled('Helloworld'))->toBe(false);
+
+			$files = $this->migrations->migrate('Migration_2017_01_02_20_12_12');
+
+			expect($this->modules->isInstalled('Helloworld'))->toBe(true);
+
+			$files = $this->migrations->rollback('Migration_2017_01_02_20_12_12');
+
+			expect($this->modules->isInstalled('Helloworld'))->toBe(false);
+		});
 	});
 });

@@ -342,7 +342,9 @@ _END;
 		// Update table name to lowercase
 		if(version_compare($fromVersion, "0.1.5") <= 0) {
 			$table = self::dbTableName;
-			$this->database->query("RENAME TABLE {$this->className} TO {$table};");
+			// Force rename even if only the case differs
+			$this->database->query("RENAME TABLE {$this->className} TO {$table}_tmp;");
+			$this->database->query("RENAME TABLE {$table}_tmp TO {$table};");
 		}
 	}
 

@@ -299,6 +299,7 @@ class Migrations extends WireData implements Module {
 		include_once(__DIR__ . "/classes/FieldMigration.php");
 		include_once(__DIR__ . "/classes/TemplateMigration.php");
 		include_once(__DIR__ . "/classes/ModuleMigration.php");
+		include_once(__DIR__ . "/classes/AccessMigration.php");
 
 		$this->getMigrations(true);
 	}

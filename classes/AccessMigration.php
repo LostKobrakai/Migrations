@@ -56,10 +56,8 @@ abstract class AccessMigration extends Migration{
 						case 'view':
 						case 'edit':
 						case 'add':
-							$types = [$type];
-							break;
 						case'create':
-							$types = [$type, 'edit'];
+							$types = [$type];
 							break;
 						case 'full':
 							$types = ['view', 'edit', 'create', 'add'];

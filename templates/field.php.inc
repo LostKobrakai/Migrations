@@ -11,6 +11,9 @@ class {classname} extends FieldMigration {
 	protected function fieldSetup(Field $f){
 		//$f->label = 'Bodytext';
 		//$f->collapsed = Inputfield::collapsedNever;
+
+		//$this->insertIntoTemplate('', $f);
+		//$this->editInTemplateContext('', $f, function(Field $f) {});
 	}
 
 }

@@ -8,7 +8,8 @@ class {classname} extends TemplateMigration {
 
 	protected function templateSetup(Template $t){
 		//$t->label = 'basic';
-		//$t->fieldgroup->add('body');
+
+		//$this->insertIntoTemplate($t, '');
 	}
 
 }

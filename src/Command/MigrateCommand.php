@@ -24,7 +24,7 @@ class MigrateCommand extends Command
 	protected function configure ()
 	{
 		$this
-			->setName('migrate')
+			->setName('run')
 			->setDescription('Migrate')
 			->setHelp("Run all migrations starting from the latest migrated one to the newest.")
 			->addArgument('what', InputArgument::OPTIONAL, 'What to migrate?')

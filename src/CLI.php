@@ -2,6 +2,7 @@
 namespace ProcessWire\Migrations;
 
 
+use ProcessWire\Migrations\Command\CreateAccessCommand;
 use ProcessWire\Migrations\Command\CreateCommand;
 use ProcessWire\Migrations\Command\CreateCustomCommand;
 use ProcessWire\Migrations\Command\CreateFieldCommand;
@@ -26,6 +27,7 @@ class CLI
 			CreateFieldCommand::class,
 			CreateModuleCommand::class,
 			CreateTemplateCommand::class,
+			CreateAccessCommand::class,
 			MigrateCommand::class,
 			RollbackCommand::class,
 			CreateCustomCommand::class,

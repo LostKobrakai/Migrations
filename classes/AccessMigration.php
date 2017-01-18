@@ -75,7 +75,7 @@ abstract class AccessMigration extends Migration{
 							$all->remove($role);
 						}
 
-						$template->setRoles($type, $all);
+						$template->setRoles($all, $type);
 					}
 				}
 			}

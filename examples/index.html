@@ -497,6 +497,31 @@
     <span class="k">protected</span> <span class="k">function</span> <span class="nf">getModuleName</span><span class="p">(){</span> <span class="k">return</span> <span class="s1">&#39;LazyCron&#39;</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
+
+
+<h3 id="access-migration-031">Access Migration (&gt;0.3.1)<a class="headerlink" href="#access-migration-031" title="Permanent link">#</a></h3>
+<p>This migration is only meant to change access rules for templates like shown below. List templates with changes, prepend a <code>+</code> or <code>-</code> if the <code>useRoles</code> setting does need to change. For those templates then list all roles which have changes (can be none) and supply which types of access should be added or removed (again using <code>+</code> and <code>-</code>).</p>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">class</span> <span class="nc">Migration_2015_10_21_12_18</span> <span class="k">extends</span> <span class="nx">AccessMigration</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="nv">$description</span> <span class="o">=</span> <span class="s2">&quot;Update template access rules&quot;</span><span class="p">;</span>
+
+  <span class="k">protected</span> <span class="k">function</span> <span class="nf">getAccessChanges</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+      <span class="s1">&#39;-blogpost&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span> <span class="c1">// Remove useRoles from blogpost template</span>
+      <span class="s1">&#39;+basic-page&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span> <span class="c1">// Add useRoles to basic-page</span>
+        <span class="s1">&#39;subscriber&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;+view&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;editor&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;+view&#39;</span><span class="p">,</span> <span class="s1">&#39;+edit&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;admin&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;+view&#39;</span><span class="p">,</span> <span class="s1">&#39;+edit&#39;</span><span class="p">,</span> <span class="s1">&#39;+create&#39;</span><span class="p">]</span> <span class="c1">// +create does require +edit</span>
+      <span class="p">],</span>
+      <span class="s1">&#39;tag&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;subscriber&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;-edit&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;admin&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;+full&#39;</span><span class="p">]</span> <span class="c1">// view, edit, create and add</span>
+      <span class="p">]</span>
+    <span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
           <aside class="copyright" role="note">
             
               Copyright (c) 2016 Benjamin Milde &ndash;

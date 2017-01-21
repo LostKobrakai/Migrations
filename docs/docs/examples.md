@@ -215,3 +215,31 @@ class Migration_2015_10_21_12_16 extends ModuleMigration {
 	protected function getModuleName(){ return 'LazyCron'; }
 }
 ```
+
+### Access Migration (>0.3.1)
+
+This migration is only meant to change access rules for templates like shown below. List templates with changes, prepend a `+` or `-` if the `useRoles` setting does need to change. For those templates then list all roles which have changes (can be none) and supply which types of access should be added or removed (again using `+` and `-`).
+
+```
+:::php
+<?php
+
+class Migration_2015_10_21_12_18 extends AccessMigration {
+  public static $description = "Update template access rules";
+  
+  protected function getAccessChanges() {
+    return [
+      '-blogpost' => [], // Remove useRoles from blogpost template
+      '+basic-page' => [ // Add useRoles to basic-page
+        'subscriber' => ['+view'],
+        'editor' => ['+view', '+edit'],
+        'admin' => ['+view', '+edit', '+create'] // +create does require +edit
+      ],
+      'tag' => [
+        'subscriber' => ['-edit'],
+        'admin' => ['+full'] // view, edit, create and add
+      ]
+    ];
+  }
+}
+```

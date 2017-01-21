@@ -30,6 +30,7 @@ Default migrations are the most free form migrations. There's just a description
 - __FieldMigration__
 - __TemplateMigration__
 - __ModuleMigration__  
+- __AccessMigration (>0.3.1)__  
 
 These make your live easier by providing a more declarative way of migrating the creation of Fields/Templates or the installation of modules. All the boilerplate is handled by the base classes these migrations do extend, so you don't need to think about `update()` and `downgrade()`. You can rather just describe the item you want to be handled and the rest is been taken care of.
 

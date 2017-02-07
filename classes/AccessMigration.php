@@ -35,7 +35,7 @@ abstract class AccessMigration extends Migration{
 
 	private function migrateAccessChanges($direction)
 	{
-		foreach ($this->getAccessChanges() as $templateCommand => $rolesSetup) {
+		foreach ($this->getAccessChanges() as $templateCommand => $setup) {
 			$template = $this->getTemplate($this->getName($templateCommand));
 
 			// Update useRoles
@@ -45,9 +45,24 @@ abstract class AccessMigration extends Migration{
 				$template->useRoles = false;
 			}
 
-			// Update roles
-			foreach ($rolesSetup as $role => $commands) {
-				$role = $this->roles->get($role);
+			foreach ($setup as $key => $commands) {
+				// Update noInherit
+				if(!is_string($key)){
+					if(!is_string($commands)) continue;
+					if(!$this->getName($commands) == 'noInherit') continue;
+
+					if($this->isAdd($direction, $commands)) {
+						$template->noInherit = 1;
+					} else if($this->isRemove($direction, $commands)) {
+						$template->noInherit = 0;
+					}
+
+					continue;
+				}
+
+				// Update roles
+				$role = $this->roles->get($key);
+				if(is_string($commands)) $commands = [$commands];
 
 				foreach ($commands as $command) {
 					$type = $this->getName($command);
@@ -56,7 +71,7 @@ abstract class AccessMigration extends Migration{
 						case 'view':
 						case 'edit':
 						case 'add':
-						case'create':
+						case 'create':
 							$types = [$type];
 							break;
 						case 'full':

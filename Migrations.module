@@ -293,7 +293,7 @@ class Migrations extends WireData implements Module {
 	 * Ran by ProcessWire when starting the module
 	 */
 	public function init() {
-		$this->path = $this->config->paths->root . "site/migrations/";
+		$this->path = $this->config->paths->site . "migrations/";
 		include_once(__DIR__ . "/classes/Migrationfile.php");
 		include_once(__DIR__ . "/classes/MigrationfilesArray.php");
 		include_once(__DIR__ . "/classes/Migration.php");

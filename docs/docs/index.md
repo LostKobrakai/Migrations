@@ -39,7 +39,7 @@ These make your live easier by providing a more declarative way of migrating the
 !!! note "Install the module with composer to use the CLI"
 		It will also install all the dependencies and symlink the script to the composer bin-dir. TL;DR it'll make things easier.
 
-The module does include a CLI interface, which does allow migrations to be run automatically by Continous Integration Systems or deployment scripts or just by yourself if you like the command-line. I suggest adding 'vendor/bin' to your $PATH variable. Then you can simply call the CLI script by `migrate -h` from your project root folder. Otherwise you'll need to call it like that: `./vendor/migrate -h`.
+The module does include a CLI interface, which does allow migrations to be run automatically by Continous Integration Systems or deployment scripts or just by yourself if you like the command-line. I suggest adding 'vendor/bin' to your $PATH variable. Then you can simply call the CLI script by `migrate -h` from your project root folder. Otherwise you'll need to call it like that: `./vendor/bin/migrate -h`.
 
 <pre>
 > migrate -h

@@ -1,6 +1,6 @@
 # Migrations [![Build Status](https://travis-ci.org/LostKobrakai/Migrations.svg?branch=master)](https://travis-ci.org/LostKobrakai/Migrations)
 
-This module is deprecated in favor of [RockMigrations](https://processwire.com/talk/topic/21212-rockmigrations-easy-migrations-from-devstaging-to-live-server/). It'll continue to work and I might fix some smaller incompatibilities if they're reported, but no major development will happen on this anymore.
+**This module is deprecated in favor of [RockMigrations](https://processwire.com/talk/topic/21212-rockmigrations-easy-migrations-from-devstaging-to-live-server/). It'll continue to work and I might fix some smaller incompatibilities if they're reported, but no major development will happen on this anymore.**
 
 <pre style="font-family: monospace; color: #00AAFF; background-color: white">
     ___       ___       ___       ___       ___       ___       ___

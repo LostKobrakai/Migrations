@@ -20,8 +20,8 @@
     }
   ],
   "require": {
-    "hari/pw-module": "~1.0",
-    "symfony/console": "^3.2"
+    "symfony/console": "^3.2",
+    "wireframe-framework/processwire-composer-installer": "^1.1"
   },
   "require-dev": {
     "lostkobrakai/conveyor": "^0.1.3"
